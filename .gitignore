@@ -19,7 +19,9 @@ yarn-debug.log*
 yarn-error.log*
 
 # Environment
+.env
 .env*.local
+!.env.example
 
 # OS
 .DS_Store
