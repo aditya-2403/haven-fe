@@ -43,7 +43,7 @@ export function ConfirmationDialog({
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -58,40 +58,41 @@ export function ConfirmationDialog({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.96, y: 8 }}
           transition={{ duration: 0.18, ease: 'easeOut' }}
-          className="relative w-full max-w-md rounded-2xl bg-surface border border-border p-6 shadow-xl z-10 my-8"
+          className="relative w-full max-w-md rounded-2xl bg-surface border border-border p-4 sm:p-6 shadow-xl z-10 my-4 sm:my-8"
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="flex items-start gap-3.5 mb-4">
+          <div className="flex items-start gap-3 sm:gap-3.5 mb-4">
             <div
               className={cn(
-                'w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border',
+                'w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center shrink-0 border',
                 bgVariants[variant],
               )}
             >
               {iconVariants[variant]}
             </div>
-            <div className="flex-1 pr-2">
-              <h3 className="text-base font-semibold text-foreground tracking-tight">{title}</h3>
+            <div className="flex-1 pr-1">
+              <h3 className="text-sm sm:text-base font-semibold text-foreground tracking-tight">{title}</h3>
               <p className="text-xs text-muted leading-relaxed mt-1">{message}</p>
             </div>
             {!isLoading && (
               <button
                 type="button"
                 onClick={onClose}
-                className="text-muted hover:text-foreground p-1 rounded-lg transition-colors"
+                className="text-muted hover:text-foreground p-1 rounded-lg transition-colors shrink-0"
               >
                 <X className="w-4 h-4" />
               </button>
             )}
           </div>
 
-          <div className="flex items-center justify-end gap-2.5 pt-3 border-t border-border mt-4">
+          <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-2 sm:gap-2.5 pt-3 border-t border-border mt-4">
             <Button
               type="button"
               variant="outline"
               size="sm"
               disabled={isLoading}
               onClick={onClose}
+              className="w-full sm:w-auto"
             >
               {cancelText}
             </Button>
@@ -101,6 +102,7 @@ export function ConfirmationDialog({
               size="sm"
               isLoading={isLoading}
               onClick={onConfirm}
+              className="w-full sm:w-auto"
             >
               {confirmText}
             </Button>

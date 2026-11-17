@@ -87,8 +87,8 @@ export default function LoginPage() {
       </div>
 
       {/* Right login form section */}
-      <div className="flex-1 flex flex-col justify-center items-center p-6 sm:p-12">
-        <div className="w-full max-w-md space-y-8">
+      <div className="flex-1 flex flex-col justify-center items-center p-4 sm:p-8 md:p-12 w-full">
+        <div className="w-full max-w-md space-y-6 sm:space-y-8">
           <div className="text-left">
             <div className="md:hidden flex items-center gap-2 mb-6">
               <div className="w-8 h-8 rounded-lg bg-[#22285B] flex items-center justify-center text-white">
@@ -96,7 +96,7 @@ export default function LoginPage() {
               </div>
               <span className="text-lg font-bold text-[#22285B]">HAVEN</span>
             </div>
-            <h2 className="text-2xl font-bold text-foreground tracking-tight">Sign in to your account</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground tracking-tight">Sign in to your account</h2>
             <p className="text-xs text-muted mt-1.5">
               Enter your credentials to access your designated Haven dashboard.
             </p>

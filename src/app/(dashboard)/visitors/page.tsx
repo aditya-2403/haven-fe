@@ -10,6 +10,7 @@ import { Input } from '../../../components/ui/input';
 import { Badge } from '../../../components/ui/badge';
 import { Card } from '../../../components/ui/card';
 import { Modal } from '../../../components/ui/modal';
+import { TableSkeleton } from '../../../components/ui/loader';
 import { toast } from '../../../stores/toast.store';
 import { formatDate, formatTime } from '../../../lib/utils';
 import { VISITOR_MESSAGES } from '../../../constants/messages';
@@ -155,7 +156,7 @@ export default function VisitorsPage() {
             Reusable visitor profiles, visit history, identification and compliance credentials.
           </p>
         </div>
-        <Button size="sm" variant="primary" onClick={() => setIsRegisterOpen(true)}>
+        <Button size="sm" variant="primary" onClick={() => setIsRegisterOpen(true)} className="w-full sm:w-auto">
           <Plus className="w-4 h-4" />
           <span>Register Visitor</span>
         </Button>
@@ -163,7 +164,7 @@ export default function VisitorsPage() {
 
       {/* Filter / Search Bar */}
       <div className="flex items-center gap-3">
-        <div className="relative flex-1 max-w-sm">
+        <div className="relative flex-1 max-w-sm w-full">
           <Search className="w-4 h-4 text-muted absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
           <input
             type="text"
@@ -179,9 +180,9 @@ export default function VisitorsPage() {
       </div>
 
       {/* Visitors Table */}
-      <Card className="p-0 overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
+      <Card className="p-0 overflow-hidden w-full min-w-0">
+        <div className="overflow-x-auto w-full min-w-0">
+          <table className="w-full text-left text-xs whitespace-nowrap min-w-[650px]">
             <thead className="bg-gray-50/80 text-muted uppercase tracking-wider border-b border-border">
               <tr>
                 <th className="py-3 px-4 font-semibold">Visitor Profile</th>
@@ -194,11 +195,7 @@ export default function VisitorsPage() {
             </thead>
             <tbody className="divide-y divide-border">
               {isLoading ? (
-                <tr>
-                  <td colSpan={6} className="py-8 text-center text-muted">
-                    Loading visitors...
-                  </td>
-                </tr>
+                <TableSkeleton rows={5} cols={6} />
               ) : visitors.length === 0 ? (
                 <tr>
                   <td colSpan={6} className="py-8 text-center text-muted">

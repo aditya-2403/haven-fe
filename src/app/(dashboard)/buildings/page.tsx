@@ -10,6 +10,7 @@ import { Input } from '../../../components/ui/input';
 import { Badge } from '../../../components/ui/badge';
 import { Card } from '../../../components/ui/card';
 import { Modal } from '../../../components/ui/modal';
+import { TableSkeleton } from '../../../components/ui/loader';
 import { toast } from '../../../stores/toast.store';
 import { BUILDING_MESSAGES } from '../../../constants/messages';
 
@@ -84,7 +85,7 @@ export default function BuildingsPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6 w-full min-w-0">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground">
@@ -94,16 +95,16 @@ export default function BuildingsPage() {
             Locations, campus facilities, and physical check-in security checkpoints.
           </p>
         </div>
-        <Button size="sm" variant="primary" onClick={() => setIsCreateOpen(true)}>
+        <Button size="sm" variant="primary" onClick={() => setIsCreateOpen(true)} className="w-full sm:w-auto">
           <Plus className="w-4 h-4" />
           <span>New Building</span>
         </Button>
       </div>
 
-      <Card className="p-0 overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
-            <thead className="bg-gray-50/80 text-muted uppercase tracking-wider border-b border-border">
+      <Card className="p-0 overflow-hidden w-full min-w-0">
+        <div className="overflow-x-auto w-full min-w-0">
+          <table className="w-full text-left text-xs whitespace-nowrap min-w-[600px]">
+            <thead className="bg-gray-50/80 text-muted uppercase tracking-wider border-b border-border text-[11px]">
               <tr>
                 <th className="py-3 px-4 font-semibold">Location Code</th>
                 <th className="py-3 px-4 font-semibold">Facility Name</th>
@@ -114,11 +115,7 @@ export default function BuildingsPage() {
             </thead>
             <tbody className="divide-y divide-border">
               {isLoading ? (
-                <tr>
-                  <td colSpan={5} className="py-8 text-center text-muted">
-                    Loading buildings...
-                  </td>
-                </tr>
+                <TableSkeleton rows={4} cols={5} />
               ) : buildings.length === 0 ? (
                 <tr>
                   <td colSpan={5} className="py-8 text-center text-muted">

@@ -11,6 +11,19 @@ export const AUTH_MESSAGES = {
   LOGOUT_CONFIRM_TITLE: 'Are you sure you want to log out?',
   LOGOUT_CONFIRM_MSG: 'You will need to re-authenticate with your email and password to access Haven.',
   LOGOUT_CONFIRM_BUTTON: 'Sign Out',
+  PROFILE_UPDATE_SUCCESS: 'Profile information updated successfully.',
+  PROFILE_UPDATE_TITLE: 'Profile Updated',
+  PROFILE_UPDATE_ERROR_TITLE: 'Update Failed',
+  FIRST_NAME_REQUIRED: 'First name is required.',
+  LAST_NAME_REQUIRED: 'Last name is required.',
+  PASSWORD_CHANGE_SUCCESS: 'Your password has been changed successfully.',
+  PASSWORD_CHANGE_TITLE: 'Password Changed',
+  PASSWORD_CHANGE_ERROR_TITLE: 'Password Error',
+  CURRENT_PASSWORD_REQUIRED: 'Current password is required.',
+  NEW_PASSWORD_REQUIRED: 'New password is required.',
+  CONFIRM_PASSWORD_REQUIRED: 'Please confirm your new password.',
+  PASSWORDS_DO_NOT_MATCH: 'New passwords do not match.',
+  PASSWORD_SAME_ERROR: 'New password cannot be identical to current password.',
 } as const;
 
 export const APPOINTMENT_MESSAGES = {
@@ -66,6 +79,10 @@ export const CHECK_IN_MESSAGES = {
   CHECK_OUT_CONFIRM_TITLE: 'Check out visitor?',
   CHECK_OUT_CONFIRM_MSG: (name: string) => `Confirm check-out for ${name}. This will conclude their access badge session on premise.`,
   CHECK_OUT_CONFIRM_BUTTON: 'Check Out',
+  CAMERA_PERMISSION_DENIED: 'Camera access was denied. Please allow camera permissions in your browser address bar.',
+  CAMERA_NOT_FOUND: 'No video camera detected on this device.',
+  CAMERA_NOT_SUPPORTED: 'Camera access is not supported by this browser or requires a secure (HTTPS or localhost) connection.',
+  PASS_DETECTED: 'QR code detected! Verifying pass...',
 } as const;
 
 export const EMPLOYEE_MESSAGES = {

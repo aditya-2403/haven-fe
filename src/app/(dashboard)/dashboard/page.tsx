@@ -149,7 +149,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Global Stat Cards */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           <Card>
             <div className="flex items-center justify-between">
               <div>
@@ -221,18 +221,18 @@ export default function DashboardPage() {
         </div>
 
         {/* Recent Organizations Section */}
-        <Card>
-          <div className="flex items-center justify-between mb-4">
+        <Card className="p-0 overflow-hidden w-full min-w-0">
+          <div className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-border">
             <CardTitle>Recent Organizations</CardTitle>
-            <Link href="/organizations">
-              <Button size="sm" variant="outline">
+            <Link href="/organizations" className="w-full sm:w-auto">
+              <Button size="sm" variant="outline" className="w-full sm:w-auto">
                 <span>Manage Organizations</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Button>
             </Link>
           </div>
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs">
+          <div className="overflow-x-auto w-full min-w-0">
+            <table className="w-full text-left text-xs whitespace-nowrap min-w-[600px]">
               <thead className="bg-gray-50/80 text-muted uppercase tracking-wider border-y border-border">
                 <tr>
                   <th className="py-2.5 px-4 font-semibold">Organization Name</th>
@@ -276,7 +276,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Quick summary cards for employee */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
           <Card>
             <div className="flex items-center justify-between">
               <div>
@@ -324,7 +324,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Pending Approval Requests Section with Quick Action */}
-        <Card>
+        <Card className="w-full min-w-0">
           <CardHeader>
             <div className="flex items-center justify-between">
               <CardTitle>Pending Visitor Approvals</CardTitle>
@@ -340,33 +340,34 @@ export default function DashboardPage() {
               {pendingApprovals.map((visit) => (
                 <div
                   key={visit._id}
-                  className="p-4 rounded-xl border border-border bg-gray-50/50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+                  className="p-3.5 sm:p-4 rounded-xl border border-border bg-gray-50/50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4"
                 >
-                  <div className="space-y-1">
-                    <div className="flex items-center gap-2">
+                  <div className="space-y-1 min-w-0 w-full sm:w-auto">
+                    <div className="flex flex-wrap items-center gap-2">
                       <span className="font-semibold text-sm text-foreground">
                         {visit.visitorId?.fullName}
                       </span>
                       {visit.visitorId?.company && (
-                        <span className="text-xs text-muted bg-white px-2 py-0.5 rounded border border-border">
+                        <span className="text-xs text-muted bg-white px-2 py-0.5 rounded border border-border truncate max-w-[200px]">
                           {visit.visitorId.company}
                         </span>
                       )}
                     </div>
-                    <p className="text-xs text-muted">
+                    <p className="text-xs text-muted truncate">
                       <span className="font-medium text-foreground">Purpose:</span> {visit.purpose}
                     </p>
-                    <p className="text-[11px] text-muted flex items-center gap-2">
+                    <p className="text-[11px] text-muted flex flex-wrap items-center gap-1.5 sm:gap-2">
                       <span>Date: {formatDate(visit.scheduledDate)} at {visit.scheduledTime}</span>
                       <span>•</span>
                       <span>Phone: {visit.visitorId?.phone}</span>
                     </p>
                   </div>
 
-                  <div className="flex items-center gap-2 self-end sm:self-center">
+                  <div className="flex items-center gap-2 w-full sm:w-auto justify-end shrink-0">
                     <Button
                       size="sm"
                       variant="danger"
+                      className="flex-1 sm:flex-initial"
                       onClick={() => setSelectedVisitForApproval(visit)}
                     >
                       Reject
@@ -374,6 +375,7 @@ export default function DashboardPage() {
                     <Button
                       size="sm"
                       variant="success"
+                      className="flex-1 sm:flex-initial"
                       onClick={() => setSelectedVisitForApproval(visit)}
                     >
                       Approve & Issue QR
@@ -412,11 +414,12 @@ export default function DashboardPage() {
                 />
               </div>
 
-              <div className="flex justify-end gap-2 pt-2 border-t border-border">
+              <div className="flex flex-col-reverse sm:flex-row justify-end gap-2 pt-2 border-t border-border">
                 <Button
                   size="sm"
                   variant="outline"
                   onClick={() => setSelectedVisitForApproval(null)}
+                  className="w-full sm:w-auto"
                 >
                   Cancel
                 </Button>
@@ -430,6 +433,7 @@ export default function DashboardPage() {
                       remarks: approvalRemarks,
                     })
                   }
+                  className="w-full sm:w-auto"
                 >
                   Reject Request
                 </Button>
@@ -443,6 +447,7 @@ export default function DashboardPage() {
                       remarks: approvalRemarks,
                     })
                   }
+                  className="w-full sm:w-auto"
                 >
                   Approve & Issue QR Pass
                 </Button>
@@ -467,16 +472,16 @@ export default function DashboardPage() {
               Real-time attendance, pass scans, check-ins and walk-in registrations.
             </p>
           </div>
-          <div className="flex items-center gap-2">
-            <Link href="/check-in">
-              <Button size="sm" variant="primary">
+          <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+            <Link href="/check-in" className="flex-1 sm:flex-initial">
+              <Button size="sm" variant="primary" className="w-full">
                 <QrCode className="w-4 h-4" />
                 <span>Open QR Scanner</span>
               </Button>
             </Link>
             {user.role === 'RECEPTIONIST' && (
-              <Link href="/appointments">
-                <Button size="sm" variant="outline">
+              <Link href="/appointments" className="flex-1 sm:flex-initial">
+                <Button size="sm" variant="outline" className="w-full">
                   <Plus className="w-4 h-4" />
                   <span>New Walk-in</span>
                 </Button>
@@ -486,7 +491,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Fast Action Cards */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4">
           <Card>
             <p className="text-xs font-medium text-muted">Currently Inside</p>
             <h3 className="text-2xl font-bold text-foreground mt-1 text-emerald-600">
@@ -521,14 +526,14 @@ export default function DashboardPage() {
         </div>
 
         {/* Currently Checked-in Visitors Live List */}
-        <Card>
-          <div className="flex items-center justify-between mb-4">
+        <Card className="p-0 overflow-hidden w-full min-w-0">
+          <div className="p-4 sm:p-5 border-b border-border flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
               <CardTitle>Currently Checked-in Visitors</CardTitle>
               <p className="text-xs text-muted mt-0.5">Real-time facility occupancy</p>
             </div>
-            <Link href="/check-in">
-              <Button size="sm" variant="outline">
+            <Link href="/check-in" className="w-full sm:w-auto">
+              <Button size="sm" variant="outline" className="w-full sm:w-auto">
                 <span>View Scanner & Check-out</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Button>
@@ -536,13 +541,13 @@ export default function DashboardPage() {
           </div>
 
           {activeVisitors.length === 0 ? (
-            <div className="py-8 text-center text-xs text-muted border border-dashed border-border rounded-xl">
+            <div className="py-8 text-center text-xs text-muted m-4 border border-dashed border-border rounded-xl">
               No visitors are currently checked in to the facility.
             </div>
           ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs">
-                <thead className="bg-gray-50 text-muted uppercase tracking-wider border-y border-border">
+            <div className="overflow-x-auto w-full min-w-0">
+              <table className="w-full text-left text-xs whitespace-nowrap min-w-[550px]">
+                <thead className="bg-gray-50 text-muted uppercase tracking-wider border-b border-border">
                   <tr>
                     <th className="py-2.5 px-4 font-semibold">Pass Code</th>
                     <th className="py-2.5 px-4 font-semibold">Visitor Name</th>
@@ -595,15 +600,15 @@ export default function DashboardPage() {
             Real-time analytics, facility throughput, and approval workflows.
           </p>
         </div>
-        <div className="flex items-center gap-2">
-          <Link href="/appointments">
-            <Button size="sm" variant="primary">
+        <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+          <Link href="/appointments" className="flex-1 sm:flex-initial">
+            <Button size="sm" variant="primary" className="w-full">
               <Plus className="w-4 h-4" />
               <span>New Appointment</span>
             </Button>
           </Link>
-          <Link href="/reports">
-            <Button size="sm" variant="outline">
+          <Link href="/reports" className="flex-1 sm:flex-initial">
+            <Button size="sm" variant="outline" className="w-full">
               <TrendingUp className="w-4 h-4" />
               <span>Full Analytics</span>
             </Button>
@@ -612,7 +617,7 @@ export default function DashboardPage() {
       </div>
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <Card>
           <div className="flex items-center justify-between">
             <div>
@@ -675,8 +680,8 @@ export default function DashboardPage() {
       </div>
 
       {/* Real Visitor Trends Visual Bar Chart */}
-      <Card>
-        <div className="flex items-center justify-between mb-6">
+      <Card className="w-full min-w-0">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
           <div>
             <CardTitle>Visitor Volume Trends (Past 7 Days)</CardTitle>
             <p className="text-xs text-muted mt-1">Daily visit volume based on live database aggregation.</p>
@@ -687,34 +692,36 @@ export default function DashboardPage() {
         {visitorTrends.length === 0 ? (
           <div className="py-8 text-center text-xs text-muted">No historical data recorded yet.</div>
         ) : (
-          <div className="h-44 flex items-end justify-between gap-2 sm:gap-6 pt-4 border-b border-border pb-2">
-            {visitorTrends.map((trend: any, idx: number) => {
-              const maxVal = Math.max(...visitorTrends.map((t: any) => t.total || 0), 5);
-              const heightPct = Math.round(((trend.total || 0) / maxVal) * 100);
+          <div className="overflow-x-auto w-full min-w-0 pb-1">
+            <div className="h-44 min-w-[380px] flex items-end justify-between gap-2 sm:gap-6 pt-4 border-b border-border pb-2">
+              {visitorTrends.map((trend: any, idx: number) => {
+                const maxVal = Math.max(...visitorTrends.map((t: any) => t.total || 0), 5);
+                const heightPct = Math.round(((trend.total || 0) / maxVal) * 100);
 
-              return (
-                <div key={idx} className="flex-1 flex flex-col items-center gap-2 h-full justify-end">
-                  <span className="text-[11px] font-bold text-foreground">{trend.total}</span>
-                  <div
-                    style={{ height: `${Math.max(heightPct, 6)}%` }}
-                    className="w-full max-w-[40px] bg-[#22285B] rounded-t-md hover:bg-[#303A7A] transition-all cursor-pointer relative group"
-                  >
-                    <div className="absolute -top-10 left-1/2 -translate-x-1/2 hidden group-hover:block bg-gray-900 text-white text-[10px] py-1 px-2 rounded whitespace-nowrap z-10 shadow">
-                      {trend.date}: {trend.total} visits
+                return (
+                  <div key={idx} className="flex-1 flex flex-col items-center gap-2 h-full justify-end">
+                    <span className="text-[11px] font-bold text-foreground">{trend.total}</span>
+                    <div
+                      style={{ height: `${Math.max(heightPct, 6)}%` }}
+                      className="w-full max-w-[40px] bg-[#22285B] rounded-t-md hover:bg-[#303A7A] transition-all cursor-pointer relative group"
+                    >
+                      <div className="absolute -top-10 left-1/2 -translate-x-1/2 hidden group-hover:block bg-gray-900 text-white text-[10px] py-1 px-2 rounded whitespace-nowrap z-10 shadow">
+                        {trend.date}: {trend.total} visits
+                      </div>
                     </div>
+                    <span className="text-[11px] font-medium text-muted mt-1">{trend.dayName}</span>
                   </div>
-                  <span className="text-[11px] font-medium text-muted mt-1">{trend.dayName}</span>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
         )}
       </Card>
 
       {/* Grid: Upcoming Visits + Pending Approvals */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         {/* Recent / Upcoming Visits */}
-        <Card>
+        <Card className="w-full min-w-0">
           <div className="flex items-center justify-between mb-4">
             <CardTitle>Recent Visits & Appointments</CardTitle>
             <Link href="/appointments">
@@ -729,16 +736,16 @@ export default function DashboardPage() {
           ) : (
             <div className="divide-y divide-border">
               {upcomingVisits.slice(0, 5).map((visit) => (
-                <div key={visit._id} className="py-3 flex items-center justify-between">
-                  <div className="space-y-0.5">
-                    <p className="text-xs font-semibold text-foreground">
+                <div key={visit._id} className="py-3 flex items-center justify-between gap-2">
+                  <div className="space-y-0.5 min-w-0">
+                    <p className="text-xs font-semibold text-foreground truncate">
                       {visit.visitorId?.fullName}
                     </p>
-                    <p className="text-[11px] text-muted">
+                    <p className="text-[11px] text-muted truncate">
                       Host: {visit.hostId?.fullName} • {formatDate(visit.scheduledDate)}
                     </p>
                   </div>
-                  <Badge status={visit.status}>{visit.status}</Badge>
+                  <Badge status={visit.status} className="shrink-0">{visit.status}</Badge>
                 </div>
               ))}
             </div>
@@ -746,7 +753,7 @@ export default function DashboardPage() {
         </Card>
 
         {/* Pending Approvals */}
-        <Card>
+        <Card className="w-full min-w-0">
           <div className="flex items-center justify-between mb-4">
             <CardTitle>Pending Approvals</CardTitle>
             <Link href="/approvals">
@@ -761,16 +768,16 @@ export default function DashboardPage() {
           ) : (
             <div className="divide-y divide-border">
               {pendingApprovals.slice(0, 5).map((visit) => (
-                <div key={visit._id} className="py-3 flex items-center justify-between">
-                  <div className="space-y-0.5">
-                    <p className="text-xs font-semibold text-foreground">
+                <div key={visit._id} className="py-3 flex items-center justify-between gap-2">
+                  <div className="space-y-0.5 min-w-0">
+                    <p className="text-xs font-semibold text-foreground truncate">
                       {visit.visitorId?.fullName}
                     </p>
-                    <p className="text-[11px] text-muted">
+                    <p className="text-[11px] text-muted truncate">
                       Host: {visit.hostId?.fullName} • {visit.purpose}
                     </p>
                   </div>
-                  <Badge status={visit.status}>{visit.status}</Badge>
+                  <Badge status={visit.status} className="shrink-0">{visit.status}</Badge>
                 </div>
               ))}
             </div>

@@ -68,7 +68,7 @@ export default function SettingsPage() {
   };
 
   return (
-    <div className="space-y-6 max-w-4xl">
+    <div className="space-y-4 sm:space-y-6 max-w-4xl w-full min-w-0">
       <div>
         <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground">
           Organization Settings
@@ -78,7 +78,7 @@ export default function SettingsPage() {
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6 w-full min-w-0">
         {/* Security & Approvals */}
         <Card>
           <CardHeader>
@@ -206,7 +206,7 @@ export default function SettingsPage() {
               </div>
             </label>
 
-            <div className="space-y-1.5 max-w-sm">
+            <div className="space-y-1.5 w-full sm:max-w-sm">
               <label className="text-xs font-semibold text-foreground">
                 Organization Primary Timezone
               </label>
@@ -231,7 +231,7 @@ export default function SettingsPage() {
         </Card>
 
         <div className="flex justify-end pt-2">
-          <Button type="submit" variant="primary" size="md" isLoading={updateMutation.isPending}>
+          <Button type="submit" variant="primary" size="md" isLoading={updateMutation.isPending} className="w-full sm:w-auto">
             <Save className="w-4 h-4" />
             <span>Save Configuration</span>
           </Button>

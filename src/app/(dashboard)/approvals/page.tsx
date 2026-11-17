@@ -10,6 +10,7 @@ import { Badge } from '../../../components/ui/badge';
 import { Card } from '../../../components/ui/card';
 import { Modal } from '../../../components/ui/modal';
 import { ConfirmationDialog } from '../../../components/ui/confirmation-dialog';
+import { TableSkeleton } from '../../../components/ui/loader';
 import { toast } from '../../../stores/toast.store';
 import { formatDate } from '../../../lib/utils';
 import { APPROVAL_MESSAGES } from '../../../constants/messages';
@@ -99,9 +100,9 @@ export default function ApprovalsPage() {
         </p>
       </div>
 
-      <Card className="p-0 overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
+      <Card className="p-0 overflow-hidden w-full min-w-0">
+        <div className="overflow-x-auto w-full min-w-0">
+          <table className="w-full text-left text-xs whitespace-nowrap min-w-[650px]">
             <thead className="bg-gray-50/80 text-muted uppercase tracking-wider border-b border-border">
               <tr>
                 <th className="py-3 px-4 font-semibold">Visitor Profile</th>
@@ -114,11 +115,7 @@ export default function ApprovalsPage() {
             </thead>
             <tbody className="divide-y divide-border">
               {isLoading ? (
-                <tr>
-                  <td colSpan={6} className="py-8 text-center text-muted">
-                    Loading pending requests...
-                  </td>
-                </tr>
+                <TableSkeleton rows={4} cols={6} />
               ) : pending.length === 0 ? (
                 <tr>
                   <td colSpan={6} className="py-8 text-center text-muted">

@@ -11,6 +11,7 @@ import { Badge } from '../../../components/ui/badge';
 import { Card } from '../../../components/ui/card';
 import { Modal } from '../../../components/ui/modal';
 import { ConfirmationDialog } from '../../../components/ui/confirmation-dialog';
+import { TableSkeleton } from '../../../components/ui/loader';
 import { toast } from '../../../stores/toast.store';
 import { formatDate } from '../../../lib/utils';
 import { ORGANIZATION_MESSAGES } from '../../../constants/messages';
@@ -166,7 +167,7 @@ export default function OrganizationsPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6 w-full min-w-0">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground">
@@ -176,15 +177,15 @@ export default function OrganizationsPage() {
             Manage multi-tenant organizations, activation status, and administrative credentials.
           </p>
         </div>
-        <Button size="sm" variant="primary" onClick={() => setIsCreateOpen(true)}>
+        <Button size="sm" variant="primary" onClick={() => setIsCreateOpen(true)} className="w-full sm:w-auto">
           <Plus className="w-4 h-4" />
           <span>New Organization</span>
         </Button>
       </div>
 
       {/* Filter / Search Bar */}
-      <div className="flex items-center gap-3">
-        <div className="relative flex-1 max-w-sm">
+      <div className="flex items-center gap-3 w-full">
+        <div className="relative w-full sm:max-w-sm">
           <Search className="w-4 h-4 text-muted absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
           <input
             type="text"
@@ -197,10 +198,10 @@ export default function OrganizationsPage() {
       </div>
 
       {/* Table */}
-      <Card className="p-0 overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
-            <thead className="bg-gray-50/80 text-muted uppercase tracking-wider border-b border-border">
+      <Card className="p-0 overflow-hidden w-full min-w-0">
+        <div className="overflow-x-auto w-full min-w-0">
+          <table className="w-full text-left text-xs whitespace-nowrap min-w-[650px]">
+            <thead className="bg-gray-50/80 text-muted uppercase tracking-wider border-b border-border text-[11px]">
               <tr>
                 <th className="py-3 px-4 font-semibold">Organization</th>
                 <th className="py-3 px-4 font-semibold">Slug</th>
@@ -212,11 +213,7 @@ export default function OrganizationsPage() {
             </thead>
             <tbody className="divide-y divide-border">
               {isLoading ? (
-                <tr>
-                  <td colSpan={6} className="py-8 text-center text-muted">
-                    Loading organizations...
-                  </td>
-                </tr>
+                <TableSkeleton rows={5} cols={6} />
               ) : orgs.length === 0 ? (
                 <tr>
                   <td colSpan={6} className="py-8 text-center text-muted">

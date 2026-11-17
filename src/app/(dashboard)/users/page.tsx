@@ -11,6 +11,7 @@ import { Badge } from '../../../components/ui/badge';
 import { Card } from '../../../components/ui/card';
 import { Modal } from '../../../components/ui/modal';
 import { ConfirmationDialog } from '../../../components/ui/confirmation-dialog';
+import { TableSkeleton } from '../../../components/ui/loader';
 import { toast } from '../../../stores/toast.store';
 import { useAuthStore } from '../../../stores/auth.store';
 import { USER_MESSAGES } from '../../../constants/messages';
@@ -189,7 +190,7 @@ export default function UsersPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6 w-full min-w-0">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground">
@@ -199,29 +200,29 @@ export default function UsersPage() {
             Access management, authentication profiles, and role-based permissions.
           </p>
         </div>
-        <Button size="sm" variant="primary" onClick={() => setIsCreateOpen(true)}>
+        <Button size="sm" variant="primary" onClick={() => setIsCreateOpen(true)} className="w-full sm:w-auto">
           <Plus className="w-4 h-4" />
           <span>New User Account</span>
         </Button>
       </div>
 
       {/* Filter / Search Bar */}
-      <div className="flex flex-wrap items-center gap-3">
-        <div className="relative flex-1 min-w-[200px]">
+      <div className="flex flex-col sm:flex-row sm:items-center gap-2.5 sm:gap-3 w-full">
+        <div className="relative flex-1 w-full sm:max-w-sm">
           <Search className="w-4 h-4 text-muted absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search by name or email..."
-            className="w-full pl-9 pr-3.5 py-1.5 text-xs bg-surface rounded-lg border border-border focus:outline-none focus:ring-1 focus:ring-primary"
+            className="w-full pl-9 pr-3.5 py-2 text-xs bg-surface rounded-lg border border-border focus:outline-none focus:ring-1 focus:ring-primary"
           />
         </div>
 
         <select
           value={roleFilter}
           onChange={(e) => setRoleFilter(e.target.value)}
-          className="text-xs p-2 rounded-lg border border-border bg-surface text-foreground focus:ring-1 focus:ring-primary focus:outline-none"
+          className="text-xs p-2 rounded-lg border border-border bg-surface text-foreground focus:ring-1 focus:ring-primary focus:outline-none w-full sm:w-auto"
         >
           <option value="">All Roles</option>
           {currentUser?.role === 'SUPER_ADMIN' && (
@@ -235,10 +236,10 @@ export default function UsersPage() {
       </div>
 
       {/* Users Table */}
-      <Card className="p-0 overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
-            <thead className="bg-gray-50/80 text-muted uppercase tracking-wider border-b border-border">
+      <Card className="p-0 overflow-hidden w-full min-w-0">
+        <div className="overflow-x-auto w-full min-w-0">
+          <table className="w-full text-left text-xs whitespace-nowrap min-w-[700px]">
+            <thead className="bg-gray-50/80 text-muted uppercase tracking-wider border-b border-border text-[11px]">
               <tr>
                 <th className="py-3 px-4 font-semibold">User</th>
                 <th className="py-3 px-4 font-semibold">Role</th>
@@ -252,11 +253,7 @@ export default function UsersPage() {
             </thead>
             <tbody className="divide-y divide-border">
               {isLoading ? (
-                <tr>
-                  <td colSpan={currentUser?.role === 'SUPER_ADMIN' ? 6 : 5} className="py-8 text-center text-muted">
-                    Loading users...
-                  </td>
-                </tr>
+                <TableSkeleton rows={5} cols={currentUser?.role === 'SUPER_ADMIN' ? 6 : 5} />
               ) : users.length === 0 ? (
                 <tr>
                   <td colSpan={currentUser?.role === 'SUPER_ADMIN' ? 6 : 5} className="py-8 text-center text-muted">

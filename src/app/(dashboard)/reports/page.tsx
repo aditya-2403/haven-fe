@@ -20,6 +20,7 @@ import { useAuthStore } from '../../../stores/auth.store';
 import { Card, CardHeader, CardTitle } from '../../../components/ui/card';
 import { Button } from '../../../components/ui/button';
 import { Badge } from '../../../components/ui/badge';
+import { CardSkeleton } from '../../../components/ui/loader';
 import { toast } from '../../../stores/toast.store';
 import { REPORT_MESSAGES } from '../../../constants/messages';
 
@@ -102,11 +103,11 @@ export default function ReportsPage() {
     : 'All Organizations (Global)';
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6 w-full min-w-0">
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
         <div>
-          <div className="flex items-center gap-2.5">
+          <div className="flex flex-wrap items-center gap-2">
             <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground">
               Analytics & Reports
             </h1>
@@ -124,18 +125,20 @@ export default function ReportsPage() {
         </div>
 
         {/* Actions & Filters */}
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3 w-full sm:w-auto">
           {user?.role === 'SUPER_ADMIN' && (
-            <div className="flex items-center gap-2 bg-surface px-3 py-1.5 rounded-lg border border-border shadow-xs">
-              <Building2 className="w-4 h-4 text-primary shrink-0" />
-              <label htmlFor="org-select" className="text-xs font-semibold text-foreground whitespace-nowrap">
-                Scope:
-              </label>
+            <div className="flex items-center gap-2 bg-surface px-3 py-1.5 rounded-lg border border-border shadow-xs w-full sm:w-auto justify-between sm:justify-start">
+              <div className="flex items-center gap-2">
+                <Building2 className="w-4 h-4 text-primary shrink-0" />
+                <label htmlFor="org-select" className="text-xs font-semibold text-foreground whitespace-nowrap">
+                  Scope:
+                </label>
+              </div>
               <select
                 id="org-select"
                 value={selectedOrgId}
                 onChange={(e) => setSelectedOrgId(e.target.value)}
-                className="text-xs bg-transparent text-foreground font-medium focus:outline-none cursor-pointer pr-2"
+                className="text-xs bg-transparent text-foreground font-medium focus:outline-none cursor-pointer pr-2 max-w-[200px] truncate"
               >
                 <option value="">All Organizations (Global)</option>
                 {organizations.map((org: any) => (
@@ -147,7 +150,7 @@ export default function ReportsPage() {
             </div>
           )}
 
-          <Button size="sm" variant="outline" onClick={handleExportCsv}>
+          <Button size="sm" variant="outline" onClick={handleExportCsv} className="w-full sm:w-auto justify-center">
             <Download className="w-4 h-4" />
             <span>Export Complete Log</span>
           </Button>
@@ -155,48 +158,54 @@ export default function ReportsPage() {
       </div>
 
       {/* Primary Throughput KPI Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card className="hover:border-primary/30 transition-colors">
-          <div className="flex items-center justify-between">
-            <p className="text-xs font-medium text-muted">Visitors Today</p>
-            <Clock className="w-4 h-4 text-primary/70" />
-          </div>
-          <h3 className="text-2xl font-bold text-foreground mt-2">{summary?.visitorsToday ?? 0}</h3>
-          <p className="text-[11px] text-muted mt-1">Visits on calendar today</p>
-        </Card>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        {isSummaryLoading ? (
+          <CardSkeleton count={4} />
+        ) : (
+          <>
+            <Card className="hover:border-primary/30 transition-colors">
+              <div className="flex items-center justify-between">
+                <p className="text-xs font-medium text-muted">Visitors Today</p>
+                <Clock className="w-4 h-4 text-primary/70" />
+              </div>
+              <h3 className="text-2xl font-bold text-foreground mt-2">{summary?.visitorsToday ?? 0}</h3>
+              <p className="text-[11px] text-muted mt-1">Visits on calendar today</p>
+            </Card>
 
-        <Card className="hover:border-primary/30 transition-colors">
-          <div className="flex items-center justify-between">
-            <p className="text-xs font-medium text-muted">This Week</p>
-            <TrendingUp className="w-4 h-4 text-primary/70" />
-          </div>
-          <h3 className="text-2xl font-bold text-foreground mt-2">{summary?.visitorsThisWeek ?? 0}</h3>
-          <p className="text-[11px] text-muted mt-1">Past 7 days traffic</p>
-        </Card>
+            <Card className="hover:border-primary/30 transition-colors">
+              <div className="flex items-center justify-between">
+                <p className="text-xs font-medium text-muted">This Week</p>
+                <TrendingUp className="w-4 h-4 text-primary/70" />
+              </div>
+              <h3 className="text-2xl font-bold text-foreground mt-2">{summary?.visitorsThisWeek ?? 0}</h3>
+              <p className="text-[11px] text-muted mt-1">Past 7 days traffic</p>
+            </Card>
 
-        <Card className="hover:border-primary/30 transition-colors">
-          <div className="flex items-center justify-between">
-            <p className="text-xs font-medium text-muted">This Month</p>
-            <BarChart3 className="w-4 h-4 text-primary/70" />
-          </div>
-          <h3 className="text-2xl font-bold text-foreground mt-2">{summary?.visitorsThisMonth ?? 0}</h3>
-          <p className="text-[11px] text-muted mt-1">Monthly throughput</p>
-        </Card>
+            <Card className="hover:border-primary/30 transition-colors">
+              <div className="flex items-center justify-between">
+                <p className="text-xs font-medium text-muted">This Month</p>
+                <BarChart3 className="w-4 h-4 text-primary/70" />
+              </div>
+              <h3 className="text-2xl font-bold text-foreground mt-2">{summary?.visitorsThisMonth ?? 0}</h3>
+              <p className="text-[11px] text-muted mt-1">Monthly throughput</p>
+            </Card>
 
-        <Card className="hover:border-primary/30 transition-colors">
-          <div className="flex items-center justify-between">
-            <p className="text-xs font-medium text-muted">Total Visitors</p>
-            <Users className="w-4 h-4 text-primary/70" />
-          </div>
-          <h3 className="text-2xl font-bold text-foreground mt-2 text-primary">
-            {summary?.totalVisitors ?? 0}
-          </h3>
-          <p className="text-[11px] text-muted mt-1">Unique profiles saved</p>
-        </Card>
+            <Card className="hover:border-primary/30 transition-colors">
+              <div className="flex items-center justify-between">
+                <p className="text-xs font-medium text-muted">Total Visitors</p>
+                <Users className="w-4 h-4 text-primary/70" />
+              </div>
+              <h3 className="text-2xl font-bold text-foreground mt-2 text-primary">
+                {summary?.totalVisitors ?? 0}
+              </h3>
+              <p className="text-[11px] text-muted mt-1">Unique profiles saved</p>
+            </Card>
+          </>
+        )}
       </div>
 
       {/* Secondary Status KPI Row */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <Card className="bg-emerald-50/40 border-emerald-100">
           <div className="flex items-center justify-between">
             <span className="text-xs font-medium text-emerald-800">Completed Visits</span>
@@ -236,14 +245,14 @@ export default function ReportsPage() {
 
       {/* 7-Day Trend Chart */}
       <Card>
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4 sm:mb-6">
           <div>
             <CardTitle>Daily Visitor Trajectory (Past 7 Days)</CardTitle>
             <p className="text-xs text-muted mt-1">
               Total scheduled incoming visitors compared to completed visits.
             </p>
           </div>
-          <Badge variant="info">
+          <Badge variant="info" className="self-start sm:self-auto">
             {selectedOrgId ? selectedOrgName : 'Multi-Tenant Aggregate'}
           </Badge>
         </div>
@@ -253,33 +262,35 @@ export default function ReportsPage() {
             No visitor trend data recorded for this period.
           </div>
         ) : (
-          <div className="h-48 flex items-end justify-between gap-4 pt-4 border-b border-border pb-2">
-            {trends.map((t: any, idx: number) => {
-              const maxVal = Math.max(...trends.map((item: any) => item.total || 0), 5);
-              const heightPct = Math.round(((t.total || 0) / maxVal) * 100);
+          <div className="overflow-x-auto w-full min-w-0">
+            <div className="h-48 min-w-[500px] flex items-end justify-between gap-4 pt-4 border-b border-border pb-2">
+              {trends.map((t: any, idx: number) => {
+                const maxVal = Math.max(...trends.map((item: any) => item.total || 0), 5);
+                const heightPct = Math.round(((t.total || 0) / maxVal) * 100);
 
-              return (
-                <div key={idx} className="flex-1 flex flex-col items-center justify-end h-full gap-2">
-                  <span className="text-[11px] font-bold text-foreground">{t.total}</span>
-                  <div
-                    style={{ height: `${Math.max(heightPct, 6)}%` }}
-                    className="w-full max-w-[44px] bg-[#22285B] rounded-t-lg hover:bg-[#303A7A] transition-all cursor-pointer relative group"
-                  >
-                    <div className="absolute -top-12 left-1/2 -translate-x-1/2 hidden group-hover:block bg-gray-900 text-white text-[10px] p-2 rounded whitespace-nowrap z-20 shadow-lg pointer-events-none">
-                      <p className="font-bold">{t.date} ({t.dayName})</p>
-                      <p>Total: {t.total} | Completed: {t.completed}</p>
+                return (
+                  <div key={idx} className="flex-1 flex flex-col items-center justify-end h-full gap-2">
+                    <span className="text-[11px] font-bold text-foreground">{t.total}</span>
+                    <div
+                      style={{ height: `${Math.max(heightPct, 6)}%` }}
+                      className="w-full max-w-[44px] bg-[#22285B] rounded-t-lg hover:bg-[#303A7A] transition-all cursor-pointer relative group"
+                    >
+                      <div className="absolute -top-12 left-1/2 -translate-x-1/2 hidden group-hover:block bg-gray-900 text-white text-[10px] p-2 rounded whitespace-nowrap z-20 shadow-lg pointer-events-none">
+                        <p className="font-bold">{t.date} ({t.dayName})</p>
+                        <p>Total: {t.total} | Completed: {t.completed}</p>
+                      </div>
                     </div>
+                    <span className="text-xs font-medium text-muted mt-1">{t.dayName}</span>
                   </div>
-                  <span className="text-xs font-medium text-muted mt-1">{t.dayName}</span>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
         )}
       </Card>
 
       {/* Breakdown: Department Stats + Top Visited Hosts */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         {/* Department-wise Distribution */}
         <Card>
           <CardHeader>

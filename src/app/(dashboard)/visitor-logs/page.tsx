@@ -9,6 +9,7 @@ import { Visit } from '../../../types';
 import { Button } from '../../../components/ui/button';
 import { Badge } from '../../../components/ui/badge';
 import { Card } from '../../../components/ui/card';
+import { TableSkeleton } from '../../../components/ui/loader';
 import { formatDate, formatDateTime, formatTime } from '../../../lib/utils';
 import { toast } from '../../../stores/toast.store';
 import { REPORT_MESSAGES } from '../../../constants/messages';
@@ -83,16 +84,16 @@ export default function VisitorLogsPage() {
             Complete audit trail of all historical visitor registrations, approvals, check-ins, and exits.
           </p>
         </div>
-        <Button size="sm" variant="outline" onClick={handleExportCsv}>
+        <Button size="sm" variant="outline" onClick={handleExportCsv} className="w-full sm:w-auto">
           <Download className="w-4 h-4" />
           <span>Export CSV</span>
         </Button>
       </div>
 
       {/* Filter Toolbar */}
-      <div className="flex flex-wrap items-center gap-3 bg-surface p-3.5 rounded-xl border border-border">
+      <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-2.5 bg-surface p-3.5 rounded-xl border border-border w-full min-w-0">
         {user?.role === 'SUPER_ADMIN' && (
-          <div className="flex items-center gap-2 bg-white px-2.5 py-1.5 rounded-lg border border-border">
+          <div className="flex items-center gap-2 bg-white px-2.5 py-1.5 rounded-lg border border-border w-full sm:w-auto">
             <Building2 className="w-4 h-4 text-primary shrink-0" />
             <select
               value={selectedOrgId}
@@ -100,7 +101,7 @@ export default function VisitorLogsPage() {
                 setSelectedOrgId(e.target.value);
                 setPage(1);
               }}
-              className="text-xs bg-transparent text-foreground font-medium focus:outline-none cursor-pointer"
+              className="text-xs bg-transparent text-foreground font-medium focus:outline-none cursor-pointer w-full"
             >
               <option value="">All Organizations</option>
               {organizations.map((org: any) => (
@@ -112,7 +113,7 @@ export default function VisitorLogsPage() {
           </div>
         )}
 
-        <div className="relative flex-1 min-w-[200px]">
+        <div className="relative flex-1 min-w-[180px] w-full">
           <Search className="w-4 h-4 text-muted absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
           <input
             type="text"
@@ -132,7 +133,7 @@ export default function VisitorLogsPage() {
             setStatus(e.target.value);
             setPage(1);
           }}
-          className="text-xs p-2 rounded-lg border border-border bg-white text-foreground focus:ring-1 focus:ring-primary focus:outline-none"
+          className="text-xs p-2 rounded-lg border border-border bg-white text-foreground focus:ring-1 focus:ring-primary focus:outline-none w-full sm:w-auto"
         >
           <option value="">All Statuses</option>
           <option value="CHECKED_OUT">Completed (Checked Out)</option>
@@ -143,7 +144,7 @@ export default function VisitorLogsPage() {
           <option value="CANCELLED">Cancelled</option>
         </select>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 w-full sm:w-auto">
           <input
             type="date"
             value={startDate}
@@ -151,7 +152,7 @@ export default function VisitorLogsPage() {
               setStartDate(e.target.value);
               setPage(1);
             }}
-            className="text-xs p-1.5 rounded-lg border border-border bg-white text-foreground focus:ring-1 focus:ring-primary focus:outline-none"
+            className="text-xs p-1.5 rounded-lg border border-border bg-white text-foreground focus:ring-1 focus:ring-primary focus:outline-none flex-1 sm:flex-initial"
           />
           <span className="text-xs text-muted">to</span>
           <input
@@ -161,7 +162,7 @@ export default function VisitorLogsPage() {
               setEndDate(e.target.value);
               setPage(1);
             }}
-            className="text-xs p-1.5 rounded-lg border border-border bg-white text-foreground focus:ring-1 focus:ring-primary focus:outline-none"
+            className="text-xs p-1.5 rounded-lg border border-border bg-white text-foreground focus:ring-1 focus:ring-primary focus:outline-none flex-1 sm:flex-initial"
           />
         </div>
 
@@ -177,6 +178,7 @@ export default function VisitorLogsPage() {
               setEndDate('');
               setPage(1);
             }}
+            className="w-full sm:w-auto"
           >
             Reset
           </Button>
@@ -184,9 +186,9 @@ export default function VisitorLogsPage() {
       </div>
 
       {/* Logs Table */}
-      <Card className="p-0 overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
+      <Card className="p-0 overflow-hidden w-full min-w-0">
+        <div className="overflow-x-auto w-full min-w-0">
+          <table className="w-full text-left text-xs whitespace-nowrap min-w-[850px]">
             <thead className="bg-gray-50/80 text-muted uppercase tracking-wider border-b border-border">
               <tr>
                 <th className="py-3 px-4 font-semibold">Pass Code</th>
@@ -204,11 +206,7 @@ export default function VisitorLogsPage() {
             </thead>
             <tbody className="divide-y divide-border">
               {isLoading ? (
-                <tr>
-                  <td colSpan={user?.role === 'SUPER_ADMIN' ? 9 : 8} className="py-8 text-center text-muted">
-                    Loading visitor logs...
-                  </td>
-                </tr>
+                <TableSkeleton rows={5} cols={user?.role === 'SUPER_ADMIN' ? 9 : 8} />
               ) : logs.length === 0 ? (
                 <tr>
                   <td colSpan={user?.role === 'SUPER_ADMIN' ? 9 : 8} className="py-8 text-center text-muted">

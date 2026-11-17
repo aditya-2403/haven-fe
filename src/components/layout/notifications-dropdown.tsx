@@ -61,7 +61,7 @@ export function NotificationsDropdown() {
             className="fixed inset-0 z-30"
             onClick={() => setIsOpen(false)}
           />
-          <div className="absolute right-0 mt-2 w-80 sm:w-96 rounded-xl bg-surface border border-border shadow-xl z-40 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-150">
+          <div className="fixed sm:absolute inset-x-3 sm:inset-x-auto sm:right-0 top-16 sm:top-auto sm:mt-2 sm:w-96 rounded-xl bg-surface border border-border shadow-xl z-40 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-150">
             <div className="p-3.5 border-b border-border flex items-center justify-between bg-gray-50/70">
               <div className="flex items-center gap-2">
                 <span className="text-xs font-semibold text-foreground">Notifications</span>

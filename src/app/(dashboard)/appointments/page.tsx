@@ -22,6 +22,7 @@ import { Badge } from '../../../components/ui/badge';
 import { Card } from '../../../components/ui/card';
 import { Modal } from '../../../components/ui/modal';
 import { ConfirmationDialog } from '../../../components/ui/confirmation-dialog';
+import { TableSkeleton } from '../../../components/ui/loader';
 import { toast } from '../../../stores/toast.store';
 import { formatDate, formatTime } from '../../../lib/utils';
 import { useAuthStore } from '../../../stores/auth.store';
@@ -216,18 +217,18 @@ export default function AppointmentsPage() {
             Schedule visits, manage pre-approvals, and generate verifiable QR passes.
           </p>
         </div>
-        <Button size="sm" variant="primary" onClick={() => setIsCreateOpen(true)}>
+        <Button size="sm" variant="primary" onClick={() => setIsCreateOpen(true)} className="w-full sm:w-auto">
           <Plus className="w-4 h-4" />
           <span>New Appointment</span>
         </Button>
       </div>
 
       {/* Filters Bar */}
-      <div className="flex flex-wrap items-center gap-3">
+      <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-2.5">
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="text-xs p-2 rounded-lg border border-border bg-surface text-foreground focus:ring-1 focus:ring-primary focus:outline-none"
+          className="text-xs p-2 rounded-lg border border-border bg-surface text-foreground focus:ring-1 focus:ring-primary focus:outline-none w-full sm:w-auto"
         >
           <option value="">All Statuses</option>
           <option value="PENDING_APPROVAL">Pending Approval</option>
@@ -242,7 +243,7 @@ export default function AppointmentsPage() {
           type="date"
           value={dateFilter}
           onChange={(e) => setDateFilter(e.target.value)}
-          className="text-xs p-2 rounded-lg border border-border bg-surface text-foreground focus:ring-1 focus:ring-primary focus:outline-none"
+          className="text-xs p-2 rounded-lg border border-border bg-surface text-foreground focus:ring-1 focus:ring-primary focus:outline-none w-full sm:w-auto"
         />
 
         {(statusFilter || dateFilter) && (
@@ -253,6 +254,7 @@ export default function AppointmentsPage() {
               setStatusFilter('');
               setDateFilter('');
             }}
+            className="w-full sm:w-auto"
           >
             Clear Filters
           </Button>
@@ -260,9 +262,9 @@ export default function AppointmentsPage() {
       </div>
 
       {/* Appointments Table */}
-      <Card className="p-0 overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
+      <Card className="p-0 overflow-hidden w-full min-w-0">
+        <div className="overflow-x-auto w-full min-w-0">
+          <table className="w-full text-left text-xs whitespace-nowrap min-w-[700px]">
             <thead className="bg-gray-50/80 text-muted uppercase tracking-wider border-b border-border">
               <tr>
                 <th className="py-3 px-4 font-semibold">Pass / ID</th>
@@ -276,11 +278,7 @@ export default function AppointmentsPage() {
             </thead>
             <tbody className="divide-y divide-border">
               {isLoading ? (
-                <tr>
-                  <td colSpan={7} className="py-8 text-center text-muted">
-                    Loading appointments...
-                  </td>
-                </tr>
+                <TableSkeleton rows={5} cols={7} />
               ) : appointments.length === 0 ? (
                 <tr>
                   <td colSpan={7} className="py-8 text-center text-muted">
@@ -540,15 +538,15 @@ export default function AppointmentsPage() {
       >
         {viewingPass && (
           <div className="flex flex-col items-center text-center space-y-4">
-            <div className="p-4 bg-white rounded-2xl border-2 border-primary/20 shadow-sm inline-block">
+            <div className="p-3 sm:p-4 bg-white rounded-2xl border-2 border-primary/20 shadow-sm inline-block max-w-full">
               {viewingPass.qrCodeDataUrl ? (
                 <img
                   src={viewingPass.qrCodeDataUrl}
                   alt="Visitor Pass QR"
-                  className="w-56 h-56 mx-auto object-contain"
+                  className="w-44 h-44 sm:w-56 sm:h-56 mx-auto object-contain"
                 />
               ) : (
-                <div className="w-56 h-56 flex items-center justify-center text-muted text-xs">
+                <div className="w-44 h-44 sm:w-56 sm:h-56 flex items-center justify-center text-muted text-xs">
                   Generating QR code...
                 </div>
               )}

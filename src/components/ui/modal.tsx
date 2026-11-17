@@ -45,7 +45,7 @@ export function Modal({
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
           {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -63,25 +63,27 @@ export function Modal({
             exit={{ opacity: 0, scale: 0.96, y: 8 }}
             transition={{ duration: 0.18, ease: 'easeOut' }}
             className={cn(
-              'relative w-full rounded-2xl bg-surface border border-border p-6 shadow-xl z-10 my-8',
+              'relative w-full rounded-2xl bg-surface border border-border p-4 sm:p-6 shadow-xl z-10 my-4 sm:my-8 max-h-[calc(100dvh-2rem)] flex flex-col overflow-hidden',
               maxWidths[maxWidth],
             )}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-start justify-between mb-4">
-              <div>
-                {title && <h2 className="text-lg font-semibold text-foreground">{title}</h2>}
-                {description && <p className="text-xs text-muted mt-1">{description}</p>}
+            <div className="flex items-start justify-between mb-3 sm:mb-4 shrink-0">
+              <div className="pr-2">
+                {title && <h2 className="text-base sm:text-lg font-bold text-foreground">{title}</h2>}
+                {description && <p className="text-xs text-muted mt-0.5 sm:mt-1">{description}</p>}
               </div>
               <button
                 type="button"
                 onClick={onClose}
-                className="text-muted hover:text-foreground rounded-lg p-1.5 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/20"
+                className="text-muted hover:text-foreground rounded-lg p-1.5 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/20 shrink-0"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
-            {children}
+            <div className="overflow-y-auto flex-1 min-h-0 pr-1 -mr-1">
+              {children}
+            </div>
           </motion.div>
         </div>
       )}

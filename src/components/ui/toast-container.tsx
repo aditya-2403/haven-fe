@@ -46,7 +46,7 @@ export function ToastContainer() {
   return (
     <div
       aria-live="assertive"
-      className="fixed top-4 right-4 z-50 flex flex-col gap-2.5 max-w-sm w-full pointer-events-none p-2 sm:p-0"
+      className="fixed top-3 sm:top-4 right-0 sm:right-4 left-0 sm:left-auto mx-auto sm:mx-0 z-50 flex flex-col gap-2.5 max-w-[calc(100vw-1.5rem)] sm:max-w-sm w-full pointer-events-none px-3 sm:px-0"
     >
       <AnimatePresence>
         {toasts.map((item) => {

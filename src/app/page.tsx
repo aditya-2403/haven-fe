@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '../stores/auth.store';
+import { HavenBrandLoader } from '../components/ui/loader';
 
 export default function RootPage() {
   const router = useRouter();
@@ -18,13 +19,6 @@ export default function RootPage() {
     }
   }, [isAuthenticated, isLoading, router]);
 
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="flex flex-col items-center gap-3">
-        <div className="w-10 h-10 border-3 border-primary border-t-transparent rounded-full animate-spin" />
-        <span className="text-sm font-medium text-muted">Loading Haven...</span>
-      </div>
-    </div>
-  );
+  return <HavenBrandLoader fullScreen message="Loading Haven..." subMessage="Securing session and verifying access" />;
 }
 

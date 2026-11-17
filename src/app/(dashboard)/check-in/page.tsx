@@ -13,6 +13,10 @@ import {
   Clock,
   Building2,
   Calendar,
+  Camera,
+  Keyboard,
+  RotateCcw,
+  ScanLine,
 } from 'lucide-react';
 import { api } from '../../../lib/api';
 import { Visit } from '../../../types';
@@ -21,12 +25,15 @@ import { Input } from '../../../components/ui/input';
 import { Badge } from '../../../components/ui/badge';
 import { Card, CardHeader, CardTitle } from '../../../components/ui/card';
 import { ConfirmationDialog } from '../../../components/ui/confirmation-dialog';
+import { TableSkeleton } from '../../../components/ui/loader';
+import { QrScanner } from '../../../components/scanner/qr-scanner';
 import { toast } from '../../../stores/toast.store';
 import { formatDate, formatTime } from '../../../lib/utils';
 import { CHECK_IN_MESSAGES } from '../../../constants/messages';
 
 export default function CheckInPage() {
   const queryClient = useQueryClient();
+  const [scanMode, setScanMode] = useState<'camera' | 'manual'>('camera');
   const [scanCode, setScanCode] = useState('');
   const [scanError, setScanError] = useState<string | null>(null);
   const [verifiedVisit, setVerifiedVisit] = useState<Visit | null>(null);
@@ -118,6 +125,13 @@ export default function CheckInPage() {
     scanMutation.mutate(scanCode.trim());
   };
 
+  const handleQrScan = (data: string) => {
+    if (!data || scanMutation.isPending) return;
+    setScanCode(data);
+    setScanError(null);
+    scanMutation.mutate(data);
+  };
+
   return (
     <div className="space-y-6">
       <div>
@@ -129,50 +143,99 @@ export default function CheckInPage() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 w-full min-w-0">
         {/* Left Column: Pass Scanner / Lookup Box */}
-        <div className="lg:col-span-5 space-y-4">
+        <div className="lg:col-span-5 space-y-4 w-full min-w-0">
           <Card>
-            <CardHeader>
+            <div className="mb-3.5">
               <CardTitle>Verify Pass / Scan QR</CardTitle>
-              <p className="text-xs text-muted">
-                Scan pass via QR barcode reader or enter the pass code manually.
+              <p className="text-xs text-muted mt-0.5">
+                Scan pass via live camera or enter pass code.
               </p>
-            </CardHeader>
+            </div>
 
-            <form onSubmit={handleScanSubmit} className="space-y-3" noValidate>
-              <div className="space-y-1.5">
-                <input
-                  type="text"
-                  value={scanCode}
-                  onChange={(e) => {
-                    setScanCode(e.target.value);
-                    if (scanError) setScanError(null);
-                  }}
-                  placeholder="e.g. HV-2HX8 or full QR string"
-                  className={`w-full text-sm font-mono p-3 rounded-lg border bg-white focus:outline-none uppercase tracking-wider ${
-                    scanError
-                      ? 'border-danger focus:border-danger focus:ring-1 focus:ring-danger'
-                      : 'border-border focus:ring-2 focus:ring-primary'
-                  }`}
-                  autoFocus
+            {/* Mode Switcher Tabs */}
+            <div className="flex items-center gap-1 p-1 bg-gray-100 rounded-xl mb-4 border border-border/60">
+              <button
+                type="button"
+                onClick={() => {
+                  setScanMode('camera');
+                  setScanError(null);
+                }}
+                className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-xs font-semibold transition-all ${
+                  scanMode === 'camera'
+                    ? 'bg-white text-foreground shadow-xs'
+                    : 'text-muted hover:text-foreground'
+                }`}
+              >
+                <Camera className="w-3.5 h-3.5 text-emerald-600" />
+                <span>Live Camera</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setScanMode('manual');
+                  setScanError(null);
+                }}
+                className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-xs font-semibold transition-all ${
+                  scanMode === 'manual'
+                    ? 'bg-white text-foreground shadow-xs'
+                    : 'text-muted hover:text-foreground'
+                }`}
+              >
+                <Keyboard className="w-3.5 h-3.5 text-primary" />
+                <span>Manual Code</span>
+              </button>
+            </div>
+
+            {scanMode === 'camera' ? (
+              <div className="space-y-3">
+                <QrScanner
+                  onScan={handleQrScan}
+                  isProcessing={scanMutation.isPending}
                 />
                 {scanError && (
-                  <p className="text-xs text-danger font-medium mt-1">{scanError}</p>
+                  <div className="p-3 rounded-lg bg-red-50 text-danger text-xs flex items-center gap-2 border border-red-200">
+                    <AlertCircle className="w-4 h-4 shrink-0" />
+                    <span>{scanError}</span>
+                  </div>
                 )}
               </div>
+            ) : (
+              <form onSubmit={handleScanSubmit} className="space-y-3" noValidate>
+                <div className="space-y-1.5">
+                  <input
+                    type="text"
+                    value={scanCode}
+                    onChange={(e) => {
+                      setScanCode(e.target.value);
+                      if (scanError) setScanError(null);
+                    }}
+                    placeholder="e.g. HV-2HX8 or full QR string"
+                    className={`w-full text-sm font-mono p-3 rounded-lg border bg-white focus:outline-none uppercase tracking-wider ${
+                      scanError
+                        ? 'border-danger focus:border-danger focus:ring-1 focus:ring-danger'
+                        : 'border-border focus:ring-2 focus:ring-primary'
+                    }`}
+                    autoFocus
+                  />
+                  {scanError && (
+                    <p className="text-xs text-danger font-medium mt-1">{scanError}</p>
+                  )}
+                </div>
 
-              <Button
-                type="submit"
-                variant="primary"
-                size="md"
-                className="w-full"
-                isLoading={scanMutation.isPending}
-              >
-                <QrCode className="w-4 h-4" />
-                <span>Verify Pass</span>
-              </Button>
-            </form>
+                <Button
+                  type="submit"
+                  variant="primary"
+                  size="md"
+                  className="w-full"
+                  isLoading={scanMutation.isPending}
+                >
+                  <QrCode className="w-4 h-4" />
+                  <span>Verify Pass</span>
+                </Button>
+              </form>
+            )}
           </Card>
 
           {/* Verified Pass Card */}
@@ -187,7 +250,20 @@ export default function CheckInPage() {
                     {verifiedVisit.passCode}
                   </span>
                 </div>
-                <Badge status={verifiedVisit.status}>{verifiedVisit.status}</Badge>
+                <div className="flex items-center gap-2">
+                  <Badge status={verifiedVisit.status}>{verifiedVisit.status}</Badge>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setVerifiedVisit(null);
+                      setScanCode('');
+                    }}
+                    className="p-1 rounded-md text-muted hover:text-foreground text-xs font-medium"
+                    title="Clear and scan next"
+                  >
+                    Clear
+                  </button>
+                </div>
               </div>
 
               <div className="flex items-center gap-3 p-3 bg-white rounded-xl border border-border">
@@ -248,8 +324,8 @@ export default function CheckInPage() {
         </div>
 
         {/* Right Column: Currently Active Visitors Table */}
-        <div className="lg:col-span-7">
-          <Card className="p-0 overflow-hidden">
+        <div className="lg:col-span-7 w-full min-w-0">
+          <Card className="p-0 overflow-hidden w-full min-w-0">
             <div className="p-4 border-b border-border flex items-center justify-between">
               <div>
                 <CardTitle>Currently Checked In</CardTitle>
@@ -259,8 +335,8 @@ export default function CheckInPage() {
               </div>
             </div>
 
-            <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs">
+            <div className="overflow-x-auto w-full min-w-0">
+              <table className="w-full text-left text-xs whitespace-nowrap min-w-[500px]">
                 <thead className="bg-gray-50/80 text-muted uppercase tracking-wider border-b border-border">
                   <tr>
                     <th className="py-2.5 px-4 font-semibold">Pass Code</th>
@@ -272,11 +348,7 @@ export default function CheckInPage() {
                 </thead>
                 <tbody className="divide-y divide-border">
                   {isLoading ? (
-                    <tr>
-                      <td colSpan={5} className="py-8 text-center text-muted">
-                        Loading active visitors...
-                      </td>
-                    </tr>
+                    <TableSkeleton rows={4} cols={5} />
                   ) : activeVisitors.length === 0 ? (
                     <tr>
                       <td colSpan={5} className="py-8 text-center text-muted">
