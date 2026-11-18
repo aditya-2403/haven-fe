@@ -81,7 +81,7 @@ export default function LoginPage() {
         </div>
 
         <div className="relative z-10 pt-8 border-t border-white/10 flex items-center justify-between text-xs text-gray-400">
-          <span>&copy; {new Date().getFullYear()} Haven Access Technologies</span>
+          <span>&copy; {new Date().getFullYear()} Quadricx</span>
           <span>Zero-Trust Architecture</span>
         </div>
       </div>
