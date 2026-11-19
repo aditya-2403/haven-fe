@@ -175,20 +175,20 @@ export function ProfileModal({ isOpen, onClose, defaultTab = 'profile' }: Profil
     >
       <div className="space-y-4">
         {/* Navigation Tabs */}
-        <div className="flex items-center gap-1 p-1 bg-gray-100/80 rounded-xl border border-border/60">
+        <div className="flex items-center gap-1 p-0.5 bg-zinc-100 rounded-none border border-border">
           <button
             type="button"
             onClick={() => {
               setActiveTab('profile');
               setProfileGlobalError(null);
             }}
-            className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-xs font-semibold transition-all ${
+            className={`flex-1 flex items-center justify-center gap-2 py-1.5 px-3 rounded-none text-xs font-semibold transition-all ${
               activeTab === 'profile'
-                ? 'bg-white text-foreground shadow-xs'
+                ? 'bg-white text-foreground border border-border shadow-xs'
                 : 'text-muted hover:text-foreground'
             }`}
           >
-            <UserCircle className="w-4 h-4 text-primary" />
+            <UserCircle className="w-3.5 h-3.5 text-foreground" />
             <span>Profile Details</span>
           </button>
           <button
@@ -197,13 +197,13 @@ export function ProfileModal({ isOpen, onClose, defaultTab = 'profile' }: Profil
               setActiveTab('password');
               setPasswordGlobalError(null);
             }}
-            className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-xs font-semibold transition-all ${
+            className={`flex-1 flex items-center justify-center gap-2 py-1.5 px-3 rounded-none text-xs font-semibold transition-all ${
               activeTab === 'password'
-                ? 'bg-white text-foreground shadow-xs'
+                ? 'bg-white text-foreground border border-border shadow-xs'
                 : 'text-muted hover:text-foreground'
             }`}
           >
-            <KeyRound className="w-4 h-4 text-primary" />
+            <KeyRound className="w-3.5 h-3.5 text-foreground" />
             <span>Change Password</span>
           </button>
         </div>
@@ -212,28 +212,28 @@ export function ProfileModal({ isOpen, onClose, defaultTab = 'profile' }: Profil
         {activeTab === 'profile' && (
           <form onSubmit={handleProfileSubmit} className="space-y-4" noValidate>
             {profileGlobalError && (
-              <div className="p-3 rounded-lg bg-red-50 text-danger text-xs flex items-center gap-2 border border-red-200">
+              <div className="p-3 rounded-none bg-red-50 text-danger text-xs flex items-center gap-2 border border-red-200">
                 <AlertCircle className="w-4 h-4 shrink-0" />
                 <span>{profileGlobalError}</span>
               </div>
             )}
 
             {/* Profile Overview Card */}
-            <div className="p-3.5 rounded-xl bg-gray-50/80 border border-border flex items-center justify-between gap-3">
+            <div className="p-3 rounded-none bg-zinc-50 border border-border flex items-center justify-between gap-3">
               <div className="flex items-center gap-3">
-                <div className="w-11 h-11 rounded-full bg-[#22285B] text-white flex items-center justify-center font-bold text-sm uppercase shadow-sm">
+                <div className="w-9 h-9 rounded-none bg-black text-white flex items-center justify-center font-bold font-mono text-xs uppercase border border-zinc-700">
                   {user?.firstName?.charAt(0) || 'U'}
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-foreground">
+                  <h4 className="text-xs font-bold text-foreground">
                     {user?.firstName} {user?.lastName}
                   </h4>
-                  <p className="text-[11px] text-muted">{user?.email}</p>
+                  <p className="text-[11px] font-mono text-muted">{user?.email}</p>
                 </div>
               </div>
 
               <div className="flex flex-col items-end gap-1">
-                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-primary/10 text-primary border border-primary/20">
+                <span className="inline-flex items-center px-1.5 py-0.5 rounded-none text-[9px] font-mono font-bold bg-zinc-200 text-zinc-900 border border-zinc-300">
                   {user?.role?.replace('_', ' ')}
                 </span>
                 <span className="text-[10px] text-muted truncate max-w-[140px]">
@@ -246,7 +246,7 @@ export function ProfileModal({ isOpen, onClose, defaultTab = 'profile' }: Profil
             <div className="space-y-1.5">
               <div className="flex items-center justify-between">
                 <label className="text-xs font-semibold text-foreground">Sign-In Email</label>
-                <span className="text-[10px] text-muted flex items-center gap-1 font-medium">
+                <span className="text-[10px] text-muted flex items-center gap-1 font-mono">
                   <Lock className="w-3 h-3 text-muted" />
                   Primary Identifier
                 </span>
@@ -259,7 +259,7 @@ export function ProfileModal({ isOpen, onClose, defaultTab = 'profile' }: Profil
                   type="email"
                   value={user?.email || ''}
                   disabled
-                  className="w-full pl-9 pr-3 py-2 text-xs bg-gray-100/80 text-muted rounded-lg border border-border cursor-not-allowed select-none font-medium"
+                  className="w-full pl-9 pr-3 py-2 text-xs bg-zinc-100 text-muted rounded-none border border-border cursor-not-allowed select-none font-mono"
                 />
               </div>
             </div>
@@ -318,18 +318,18 @@ export function ProfileModal({ isOpen, onClose, defaultTab = 'profile' }: Profil
         {activeTab === 'password' && (
           <form onSubmit={handlePasswordSubmit} className="space-y-4" noValidate>
             {passwordGlobalError && (
-              <div className="p-3 rounded-lg bg-red-50 text-danger text-xs flex items-center gap-2 border border-red-200">
+              <div className="p-3 rounded-none bg-red-50 text-danger text-xs flex items-center gap-2 border border-red-200">
                 <AlertCircle className="w-4 h-4 shrink-0" />
                 <span>{passwordGlobalError}</span>
               </div>
             )}
 
-            <div className="p-3 rounded-lg bg-blue-50/60 border border-blue-100 text-blue-900 text-xs space-y-0.5">
-              <p className="font-semibold flex items-center gap-1.5">
-                <Shield className="w-3.5 h-3.5 text-blue-600" />
+            <div className="p-3 rounded-none bg-zinc-50 border border-border text-foreground text-xs space-y-0.5">
+              <p className="font-mono font-bold uppercase tracking-wider flex items-center gap-1.5 text-[11px]">
+                <Shield className="w-3.5 h-3.5 text-zinc-900" />
                 Password Security
               </p>
-              <p className="text-[11px] text-blue-700 leading-relaxed">
+              <p className="text-[11px] text-muted leading-relaxed font-sans">
                 Choose a strong password of at least 6 characters. You will remain signed in on this current browser session.
               </p>
             </div>
@@ -347,10 +347,10 @@ export function ProfileModal({ isOpen, onClose, defaultTab = 'profile' }: Profil
                       setPasswordErrors((p) => ({ ...p, currentPassword: '' }));
                   }}
                   placeholder="Enter your existing password"
-                  className={`w-full pr-10 pl-3 py-2 text-xs bg-surface rounded-lg border focus:outline-none ${
+                  className={`w-full pr-10 pl-3 py-2 text-xs bg-surface rounded-none border focus:outline-none ${
                     passwordErrors.currentPassword
                       ? 'border-danger focus:border-danger focus:ring-1 focus:ring-danger'
-                      : 'border-border focus:ring-1 focus:ring-primary'
+                      : 'border-border focus:border-foreground'
                   }`}
                   required
                 />
@@ -382,10 +382,10 @@ export function ProfileModal({ isOpen, onClose, defaultTab = 'profile' }: Profil
                       setPasswordErrors((p) => ({ ...p, newPassword: '' }));
                   }}
                   placeholder="Minimum 6 characters"
-                  className={`w-full pr-10 pl-3 py-2 text-xs bg-surface rounded-lg border focus:outline-none ${
+                  className={`w-full pr-10 pl-3 py-2 text-xs bg-surface rounded-none border focus:outline-none ${
                     passwordErrors.newPassword
                       ? 'border-danger focus:border-danger focus:ring-1 focus:ring-danger'
-                      : 'border-border focus:ring-1 focus:ring-primary'
+                      : 'border-border focus:border-foreground'
                   }`}
                   required
                 />
@@ -417,10 +417,10 @@ export function ProfileModal({ isOpen, onClose, defaultTab = 'profile' }: Profil
                       setPasswordErrors((p) => ({ ...p, confirmPassword: '' }));
                   }}
                   placeholder="Re-type your new password"
-                  className={`w-full pr-10 pl-3 py-2 text-xs bg-surface rounded-lg border focus:outline-none ${
+                  className={`w-full pr-10 pl-3 py-2 text-xs bg-surface rounded-none border focus:outline-none ${
                     passwordErrors.confirmPassword
                       ? 'border-danger focus:border-danger focus:ring-1 focus:ring-danger'
-                      : 'border-border focus:ring-1 focus:ring-primary'
+                      : 'border-border focus:border-foreground'
                   }`}
                   required
                 />

@@ -12,6 +12,7 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         surface: "var(--surface)",
+        "surface-hover": "var(--surface-hover)",
         primary: {
           DEFAULT: "var(--primary)",
           hover: "var(--primary-hover)",
@@ -28,4 +29,3 @@ const config: Config = {
   plugins: [],
 };
 export default config;
-

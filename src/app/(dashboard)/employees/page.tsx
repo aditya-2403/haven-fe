@@ -23,6 +23,14 @@ import { Input } from '../../../components/ui/input';
 import { Badge } from '../../../components/ui/badge';
 import { Card } from '../../../components/ui/card';
 import { Modal } from '../../../components/ui/modal';
+import { Label } from '../../../components/ui/label';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '../../../components/ui/select';
 import { TableSkeleton } from '../../../components/ui/loader';
 import { toast } from '../../../stores/toast.store';
 import { useAuthStore } from '../../../stores/auth.store';
@@ -232,7 +240,7 @@ export default function EmployeesPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search by name, ID or email..."
-            className="w-full pl-9 pr-3.5 py-2 text-xs bg-surface rounded-lg border border-border focus:outline-none focus:ring-1 focus:ring-primary"
+            className="w-full pl-9 pr-3.5 py-2 text-xs bg-surface rounded-none border border-border focus:outline-none focus:border-foreground"
           />
         </div>
       </div>
@@ -283,7 +291,7 @@ export default function EmployeesPage() {
                     <td className="py-3 px-4">
                       {emp.userId ? (
                         <div className="flex items-center gap-2">
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">
+                          <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-none text-[10px] font-mono font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">
                             <CheckCircle2 className="w-3 h-3 text-emerald-600" />
                             Active Login
                           </span>
@@ -294,21 +302,21 @@ export default function EmployeesPage() {
                               setProvisionPassword('');
                               setProvisionError(null);
                             }}
-                            className="text-[10px] text-muted hover:text-primary underline font-medium"
+                            className="text-[10px] text-muted hover:text-foreground underline font-mono"
                           >
                             Reset
                           </button>
                         </div>
                       ) : (
                         <div className="flex items-center gap-2">
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium bg-amber-50 text-amber-700 border border-amber-200">
+                          <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-none text-[10px] font-mono font-medium bg-amber-50 text-amber-700 border border-amber-200">
                             <ShieldAlert className="w-3 h-3 text-amber-600" />
                             No Login
                           </span>
                           <Button
                             size="sm"
                             variant="outline"
-                            className="h-6 text-[10px] px-2"
+                            className="h-6 text-[10px] px-2 font-mono"
                             onClick={() => {
                               setProvisionEmp(emp);
                               setProvisionPassword('');
@@ -345,7 +353,7 @@ export default function EmployeesPage() {
       >
         <form onSubmit={handleCreateSubmit} className="space-y-4" noValidate>
           {formError && (
-            <div className="p-3 rounded-lg bg-red-50 text-danger text-xs flex items-center gap-2 border border-red-200">
+            <div className="p-3 rounded-none bg-red-50 text-danger text-xs flex items-center gap-2 border border-red-200">
               <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{formError}</span>
             </div>
@@ -353,27 +361,25 @@ export default function EmployeesPage() {
 
           {currentUser?.role === 'SUPER_ADMIN' && (
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-foreground">Organization *</label>
-              <select
+              <Label>Organization *</Label>
+              <Select
                 value={selectedOrgId}
-                onChange={(e) => {
-                  setSelectedOrgId(e.target.value);
+                onValueChange={(val) => {
+                  setSelectedOrgId(val);
                   if (errors.organizationId) setErrors((prev) => ({ ...prev, organizationId: '' }));
                 }}
-                className={`w-full text-xs p-2.5 rounded-lg border bg-white focus:outline-none ${
-                  errors.organizationId
-                    ? 'border-danger focus:border-danger focus:ring-1 focus:ring-danger'
-                    : 'border-border focus:ring-1 focus:ring-primary'
-                }`}
-                required
               >
-                <option value="">-- Select Organization --</option>
-                {orgsData.map((org) => (
-                  <option key={org._id} value={org._id}>
-                    {org.name} ({org.slug})
-                  </option>
-                ))}
-              </select>
+                <SelectTrigger error={!!errors.organizationId}>
+                  <SelectValue placeholder="-- Select Organization --" />
+                </SelectTrigger>
+                <SelectContent>
+                  {orgsData.map((org) => (
+                    <SelectItem key={org._id} value={org._id}>
+                      {org.name} ({org.slug})
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
               {errors.organizationId && (
                 <p className="text-xs text-danger font-medium mt-1">{errors.organizationId}</p>
               )}
@@ -428,27 +434,25 @@ export default function EmployeesPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-foreground">Department *</label>
-              <select
+              <Label>Department *</Label>
+              <Select
                 value={departmentId}
-                onChange={(e) => {
-                  setDepartmentId(e.target.value);
+                onValueChange={(val) => {
+                  setDepartmentId(val);
                   if (errors.departmentId) setErrors((prev) => ({ ...prev, departmentId: '' }));
                 }}
-                className={`w-full text-xs p-2.5 rounded-lg border bg-white focus:outline-none ${
-                  errors.departmentId
-                    ? 'border-danger focus:border-danger focus:ring-1 focus:ring-danger'
-                    : 'border-border focus:ring-1 focus:ring-primary'
-                }`}
-                required
               >
-                <option value="">-- Choose department --</option>
-                {departments.map((dept) => (
-                  <option key={dept._id} value={dept._id}>
-                    {dept.name}
-                  </option>
-                ))}
-              </select>
+                <SelectTrigger error={!!errors.departmentId}>
+                  <SelectValue placeholder="-- Choose department --" />
+                </SelectTrigger>
+                <SelectContent>
+                  {departments.map((dept) => (
+                    <SelectItem key={dept._id} value={dept._id}>
+                      {dept.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
               {errors.departmentId && (
                 <p className="text-xs text-danger font-medium mt-1">{errors.departmentId}</p>
               )}
@@ -467,17 +471,17 @@ export default function EmployeesPage() {
           </div>
 
           {/* Login Account Provisioning Option */}
-          <div className="p-3.5 rounded-xl border border-border/80 bg-slate-50/50 space-y-3">
+          <div className="p-3.5 rounded-none border border-border bg-zinc-50 space-y-3">
             <label className="flex items-start gap-2.5 cursor-pointer">
               <input
                 type="checkbox"
                 checked={createLogin}
                 onChange={(e) => setCreateLogin(e.target.checked)}
-                className="mt-0.5 rounded border-border text-primary focus:ring-primary h-4 w-4"
+                className="mt-0.5 rounded-none border-border text-foreground focus:ring-0 h-4 w-4"
               />
               <div>
                 <span className="text-xs font-semibold text-foreground flex items-center gap-1.5">
-                  <KeyRound className="w-3.5 h-3.5 text-primary" />
+                  <KeyRound className="w-3.5 h-3.5 text-foreground" />
                   Enable Login Account for this Employee
                 </span>
                 <p className="text-[11px] text-muted mt-0.5">
@@ -487,7 +491,7 @@ export default function EmployeesPage() {
             </label>
 
             {createLogin && (
-              <div className="pt-2 border-t border-border/60">
+              <div className="pt-2 border-t border-border">
                 <Input
                   label="Initial Password *"
                   type="password"
@@ -537,16 +541,16 @@ export default function EmployeesPage() {
       >
         <form onSubmit={handleProvisionSubmit} className="space-y-4" noValidate>
           {provisionError && (
-            <div className="p-3 rounded-lg bg-red-50 text-danger text-xs flex items-center gap-2 border border-red-200">
+            <div className="p-3 rounded-none bg-red-50 text-danger text-xs flex items-center gap-2 border border-red-200">
               <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{provisionError}</span>
             </div>
           )}
 
-          <div className="p-3 rounded-lg bg-slate-50 border border-border text-xs space-y-1">
+          <div className="p-3 rounded-none bg-zinc-50 border border-border text-xs space-y-1 font-mono">
             <p className="text-foreground font-semibold">{provisionEmp?.fullName}</p>
             <p className="text-muted">{provisionEmp?.email}</p>
-            <p className="text-[11px] text-primary font-medium">Assigned Role: EMPLOYEE</p>
+            <p className="text-[11px] text-foreground font-medium">Assigned Role: EMPLOYEE</p>
           </div>
 
           <Input

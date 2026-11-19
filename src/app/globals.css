@@ -3,16 +3,17 @@
 @tailwind utilities;
 
 :root {
-  --background: #F8F9FC;
+  --background: #FAFAFA;
   --surface: #FFFFFF;
-  --primary: #22285B;
-  --primary-hover: #303A7A;
-  --foreground: #171923;
-  --muted: #747B8B;
-  --border: #E8EAF0;
-  --success: #16A36A;
-  --warning: #E9A23B;
-  --danger: #DC5353;
+  --surface-hover: #F4F4F5;
+  --primary: #09090B;
+  --primary-hover: #27272A;
+  --foreground: #09090B;
+  --muted: #71717A;
+  --border: #E4E4E7;
+  --success: #16A34A;
+  --warning: #D97706;
+  --danger: #DC2626;
 }
 
 html,
@@ -28,10 +29,10 @@ body {
   width: 100%;
 }
 
-/* Custom scrollbar */
+/* Cursor-style square precision scrollbars */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 4px;
+  height: 4px;
 }
 
 ::-webkit-scrollbar-track {
@@ -39,12 +40,27 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #D1D5DB;
-  border-radius: 9999px;
+  background: #D4D4D8;
+  border-radius: 0px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #9CA3AF;
+  background: #A1A1AA;
+}
+
+/* Technical wireframe grid pattern */
+.cursor-grid-pattern {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+}
+
+.cursor-grid-pattern-dark {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
 }
 
 @keyframes shimmer {
@@ -58,17 +74,19 @@ body {
 
 @keyframes scannerSweep {
   0% {
-    top: 6%;
-    opacity: 0.7;
+    top: 4%;
+    opacity: 0.8;
   }
   50% {
-    top: 90%;
+    top: 92%;
     opacity: 1;
   }
   100% {
-    top: 6%;
-    opacity: 0.7;
+    top: 4%;
+    opacity: 0.8;
   }
 }
 
-
+.animate-scanner {
+  animation: scannerSweep 2s ease-in-out infinite;
+}

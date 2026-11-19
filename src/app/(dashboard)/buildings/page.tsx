@@ -160,7 +160,7 @@ export default function BuildingsPage() {
       >
         <form onSubmit={handleCreateSubmit} className="space-y-4" noValidate>
           {formError && (
-            <div className="p-3 rounded-lg bg-red-50 text-danger text-xs flex items-center gap-2 border border-red-200">
+            <div className="p-3 rounded-none bg-red-50 text-danger text-xs flex items-center gap-2 border border-red-200">
               <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{formError}</span>
             </div>

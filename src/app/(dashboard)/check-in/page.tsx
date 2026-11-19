@@ -155,20 +155,20 @@ export default function CheckInPage() {
             </div>
 
             {/* Mode Switcher Tabs */}
-            <div className="flex items-center gap-1 p-1 bg-gray-100 rounded-xl mb-4 border border-border/60">
+            <div className="flex items-center gap-1 p-1 bg-zinc-100 rounded-none mb-4 border border-border">
               <button
                 type="button"
                 onClick={() => {
                   setScanMode('camera');
                   setScanError(null);
                 }}
-                className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-xs font-semibold transition-all ${
+                className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-none text-xs font-semibold font-mono uppercase tracking-wider transition-all ${
                   scanMode === 'camera'
-                    ? 'bg-white text-foreground shadow-xs'
+                    ? 'bg-black text-white shadow-xs'
                     : 'text-muted hover:text-foreground'
                 }`}
               >
-                <Camera className="w-3.5 h-3.5 text-emerald-600" />
+                <Camera className="w-3.5 h-3.5" />
                 <span>Live Camera</span>
               </button>
               <button
@@ -177,13 +177,13 @@ export default function CheckInPage() {
                   setScanMode('manual');
                   setScanError(null);
                 }}
-                className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-xs font-semibold transition-all ${
+                className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-none text-xs font-semibold font-mono uppercase tracking-wider transition-all ${
                   scanMode === 'manual'
-                    ? 'bg-white text-foreground shadow-xs'
+                    ? 'bg-black text-white shadow-xs'
                     : 'text-muted hover:text-foreground'
                 }`}
               >
-                <Keyboard className="w-3.5 h-3.5 text-primary" />
+                <Keyboard className="w-3.5 h-3.5" />
                 <span>Manual Code</span>
               </button>
             </div>
@@ -195,7 +195,7 @@ export default function CheckInPage() {
                   isProcessing={scanMutation.isPending}
                 />
                 {scanError && (
-                  <div className="p-3 rounded-lg bg-red-50 text-danger text-xs flex items-center gap-2 border border-red-200">
+                  <div className="p-3 rounded-none bg-red-50 text-danger text-xs flex items-center gap-2 border border-red-200">
                     <AlertCircle className="w-4 h-4 shrink-0" />
                     <span>{scanError}</span>
                   </div>
@@ -212,10 +212,10 @@ export default function CheckInPage() {
                       if (scanError) setScanError(null);
                     }}
                     placeholder="e.g. HV-2HX8 or full QR string"
-                    className={`w-full text-sm font-mono p-3 rounded-lg border bg-white focus:outline-none uppercase tracking-wider ${
+                    className={`w-full text-sm font-mono p-3 rounded-none border bg-surface focus:outline-none uppercase tracking-wider ${
                       scanError
                         ? 'border-danger focus:border-danger focus:ring-1 focus:ring-danger'
-                        : 'border-border focus:ring-2 focus:ring-primary'
+                        : 'border-border focus:border-foreground'
                     }`}
                     autoFocus
                   />
@@ -240,13 +240,13 @@ export default function CheckInPage() {
 
           {/* Verified Pass Card */}
           {verifiedVisit && (
-            <Card className="border-2 border-primary/20 bg-primary/5 space-y-4 animate-in fade-in duration-200">
+            <Card className="border border-foreground bg-zinc-50 space-y-4 animate-in fade-in duration-200">
               <div className="flex items-start justify-between">
                 <div>
                   <span className="text-[10px] font-mono uppercase tracking-wider text-muted font-bold block">
                     Pass Code
                   </span>
-                  <span className="text-xl font-mono font-bold text-primary">
+                  <span className="text-xl font-mono font-bold text-foreground">
                     {verifiedVisit.passCode}
                   </span>
                 </div>
@@ -258,7 +258,7 @@ export default function CheckInPage() {
                       setVerifiedVisit(null);
                       setScanCode('');
                     }}
-                    className="p-1 rounded-md text-muted hover:text-foreground text-xs font-medium"
+                    className="p-1 rounded-none border border-border text-muted hover:text-foreground hover:bg-zinc-100 text-xs font-mono font-medium"
                     title="Clear and scan next"
                   >
                     Clear
@@ -266,8 +266,8 @@ export default function CheckInPage() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-3 p-3 bg-white rounded-xl border border-border">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center font-bold text-base shrink-0 overflow-hidden">
+              <div className="flex items-center gap-3 p-3 bg-surface rounded-none border border-border">
+                <div className="w-12 h-12 rounded-none bg-zinc-100 border border-border text-foreground flex items-center justify-center font-bold font-mono text-base shrink-0 overflow-hidden">
                   {verifiedVisit.visitorId?.photoFileId ? (
                     <img
                       src={`http://localhost:4000/api/v1/storage/${verifiedVisit.visitorId.photoFileId}`}
@@ -287,7 +287,7 @@ export default function CheckInPage() {
                 </div>
               </div>
 
-              <div className="bg-white rounded-xl p-3 border border-border text-xs space-y-1.5">
+              <div className="bg-surface rounded-none p-3 border border-border text-xs space-y-1.5 font-mono">
                 <p><strong>Host:</strong> {verifiedVisit.hostId?.fullName} ({verifiedVisit.hostId?.designation})</p>
                 <p><strong>Purpose:</strong> {verifiedVisit.purpose}</p>
                 <p><strong>Building:</strong> {verifiedVisit.buildingId?.name || 'Main HQ'}</p>

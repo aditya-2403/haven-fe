@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useAuthStore } from '../../stores/auth.store';
 import { Sidebar } from '../../components/layout/sidebar';
 import { Header } from '../../components/layout/header';
+import { Spinner } from '../../components/ui/loader';
 
 export default function DashboardLayout({
   children,
@@ -25,8 +26,8 @@ export default function DashboardLayout({
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="flex flex-col items-center gap-3">
-          <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
-          <span className="text-xs font-medium text-muted">Authenticating...</span>
+          <Spinner size="md" />
+          <span className="text-xs font-mono uppercase tracking-wider text-muted">AUTHENTICATING_SESSION...</span>
         </div>
       </div>
     );

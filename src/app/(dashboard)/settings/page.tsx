@@ -8,6 +8,14 @@ import { OrganizationSettings } from '../../../types';
 import { Button } from '../../../components/ui/button';
 import { Input } from '../../../components/ui/input';
 import { Card, CardHeader, CardTitle, CardDescription } from '../../../components/ui/card';
+import { Label } from '../../../components/ui/label';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '../../../components/ui/select';
 import { toast } from '../../../stores/toast.store';
 import { SETTINGS_MESSAGES } from '../../../constants/messages';
 
@@ -142,36 +150,40 @@ export default function SettingsPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-foreground">
-                Default Visit Duration (Minutes)
-              </label>
-              <select
-                value={defaultVisitDurationMinutes}
-                onChange={(e) => setDefaultVisitDurationMinutes(Number(e.target.value))}
-                className="w-full text-xs p-2.5 rounded-lg border border-border bg-white focus:ring-1 focus:ring-primary focus:outline-none"
+              <Label>Default Visit Duration (Minutes)</Label>
+              <Select
+                value={String(defaultVisitDurationMinutes)}
+                onValueChange={(val) => setDefaultVisitDurationMinutes(Number(val))}
               >
-                <option value={30}>30 Minutes</option>
-                <option value={45}>45 Minutes</option>
-                <option value={60}>60 Minutes (1 Hour)</option>
-                <option value={90}>90 Minutes</option>
-                <option value={120}>120 Minutes (2 Hours)</option>
-              </select>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select duration" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="30">30 Minutes</SelectItem>
+                  <SelectItem value="45">45 Minutes</SelectItem>
+                  <SelectItem value="60">60 Minutes (1 Hour)</SelectItem>
+                  <SelectItem value="90">90 Minutes</SelectItem>
+                  <SelectItem value="120">120 Minutes (2 Hours)</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-foreground">
-                QR Pass Expiration (Hours from Issuance)
-              </label>
-              <select
-                value={passExpiryHours}
-                onChange={(e) => setPassExpiryHours(Number(e.target.value))}
-                className="w-full text-xs p-2.5 rounded-lg border border-border bg-white focus:ring-1 focus:ring-primary focus:outline-none"
+              <Label>QR Pass Expiration (Hours from Issuance)</Label>
+              <Select
+                value={String(passExpiryHours)}
+                onValueChange={(val) => setPassExpiryHours(Number(val))}
               >
-                <option value={12}>12 Hours</option>
-                <option value={24}>24 Hours (1 Day)</option>
-                <option value={48}>48 Hours (2 Days)</option>
-                <option value={72}>72 Hours (3 Days)</option>
-              </select>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select expiry hours" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="12">12 Hours</SelectItem>
+                  <SelectItem value="24">24 Hours (1 Day)</SelectItem>
+                  <SelectItem value="48">48 Hours (2 Days)</SelectItem>
+                  <SelectItem value="72">72 Hours (3 Days)</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </div>
         </Card>
@@ -207,25 +219,27 @@ export default function SettingsPage() {
             </label>
 
             <div className="space-y-1.5 w-full sm:max-w-sm">
-              <label className="text-xs font-semibold text-foreground">
-                Organization Primary Timezone
-              </label>
-              <select
+              <Label>Organization Primary Timezone</Label>
+              <Select
                 value={timezone}
-                onChange={(e) => setTimezone(e.target.value)}
-                className="w-full text-xs p-2.5 rounded-lg border border-border bg-white focus:ring-1 focus:ring-primary focus:outline-none"
+                onValueChange={(val) => setTimezone(val)}
               >
-                <option value="UTC">UTC (Universal Coordinated Time)</option>
-                <option value="America/New_York">America/New_York (EST / EDT)</option>
-                <option value="America/Chicago">America/Chicago (CST / CDT)</option>
-                <option value="America/Los_Angeles">America/Los_Angeles (PST / PDT)</option>
-                <option value="Europe/London">Europe/London (GMT / BST)</option>
-                <option value="Europe/Paris">Europe/Paris (CET / CEST)</option>
-                <option value="Asia/Dubai">Asia/Dubai (GST)</option>
-                <option value="Asia/Kolkata">Asia/Kolkata (IST)</option>
-                <option value="Asia/Singapore">Asia/Singapore (SGT)</option>
-                <option value="Asia/Tokyo">Asia/Tokyo (JST)</option>
-              </select>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select timezone" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="UTC">UTC (Universal Coordinated Time)</SelectItem>
+                  <SelectItem value="America/New_York">America/New_York (EST / EDT)</SelectItem>
+                  <SelectItem value="America/Chicago">America/Chicago (CST / CDT)</SelectItem>
+                  <SelectItem value="America/Los_Angeles">America/Los_Angeles (PST / PDT)</SelectItem>
+                  <SelectItem value="Europe/London">Europe/London (GMT / BST)</SelectItem>
+                  <SelectItem value="Europe/Paris">Europe/Paris (CET / CEST)</SelectItem>
+                  <SelectItem value="Asia/Dubai">Asia/Dubai (GST)</SelectItem>
+                  <SelectItem value="Asia/Kolkata">Asia/Kolkata (IST)</SelectItem>
+                  <SelectItem value="Asia/Singapore">Asia/Singapore (SGT)</SelectItem>
+                  <SelectItem value="Asia/Tokyo">Asia/Tokyo (JST)</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </div>
         </Card>

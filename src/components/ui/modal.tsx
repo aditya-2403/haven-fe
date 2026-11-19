@@ -51,34 +51,34 @@ export function Modal({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
-            className="fixed inset-0 bg-black/40 backdrop-blur-sm"
+            transition={{ duration: 0.12 }}
+            className="fixed inset-0 bg-black/60 backdrop-blur-xs"
             onClick={onClose}
           />
 
-          {/* Modal Panel */}
+          {/* Precision Sharp Panel */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.96, y: 8 }}
+            initial={{ opacity: 0, scale: 0.98, y: 6 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.96, y: 8 }}
-            transition={{ duration: 0.18, ease: 'easeOut' }}
+            exit={{ opacity: 0, scale: 0.98, y: 6 }}
+            transition={{ duration: 0.15, ease: 'easeOut' }}
             className={cn(
-              'relative w-full rounded-2xl bg-surface border border-border p-4 sm:p-6 shadow-xl z-10 my-4 sm:my-8 max-h-[calc(100dvh-2rem)] flex flex-col overflow-hidden',
+              'relative w-full rounded-none bg-surface border border-zinc-200 p-4 sm:p-6 shadow-2xl z-10 my-4 sm:my-8 max-h-[calc(100dvh-2rem)] flex flex-col overflow-hidden',
               maxWidths[maxWidth],
             )}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-start justify-between mb-3 sm:mb-4 shrink-0">
+            <div className="flex items-start justify-between pb-3 mb-3 border-b border-border shrink-0">
               <div className="pr-2">
-                {title && <h2 className="text-base sm:text-lg font-bold text-foreground">{title}</h2>}
-                {description && <p className="text-xs text-muted mt-0.5 sm:mt-1">{description}</p>}
+                {title && <h2 className="text-sm sm:text-base font-semibold tracking-tight text-foreground">{title}</h2>}
+                {description && <p className="text-xs text-muted mt-0.5">{description}</p>}
               </div>
               <button
                 type="button"
                 onClick={onClose}
-                className="text-muted hover:text-foreground rounded-lg p-1.5 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/20 shrink-0"
+                className="text-muted hover:text-foreground rounded-none p-1 transition-colors focus:outline-none shrink-0"
               >
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4" />
               </button>
             </div>
             <div className="overflow-y-auto flex-1 min-h-0 pr-1 -mr-1">

@@ -38,24 +38,24 @@ export function Badge({ children, variant, status, className }: BadgeProps) {
   }
 
   const variants = {
-    default: 'bg-primary/10 text-primary border-primary/20',
-    success: 'bg-emerald-50 text-emerald-700 border-emerald-200',
-    warning: 'bg-amber-50 text-amber-700 border-amber-200',
-    danger: 'bg-rose-50 text-rose-700 border-rose-200',
-    info: 'bg-blue-50 text-blue-700 border-blue-200',
-    neutral: 'bg-gray-100 text-gray-700 border-gray-200',
+    default: 'bg-zinc-100 text-zinc-900 border-zinc-300',
+    success: 'bg-emerald-50/80 text-emerald-800 border-emerald-300',
+    warning: 'bg-amber-50/80 text-amber-800 border-amber-300',
+    danger: 'bg-rose-50/80 text-rose-800 border-rose-300',
+    info: 'bg-sky-50/80 text-sky-800 border-sky-300',
+    neutral: 'bg-zinc-100 text-zinc-600 border-zinc-200',
   };
 
   return (
     <span
       className={cn(
-        'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold border tracking-wide uppercase',
+        'inline-flex items-center gap-1 px-1.5 py-0.5 rounded-none text-[10px] font-mono font-medium border uppercase tracking-wider select-none',
         variants[computedVariant],
         className,
       )}
     >
+      <span className="w-1.5 h-1.5 rounded-none bg-current opacity-70" />
       {children}
     </span>
   );
 }
-

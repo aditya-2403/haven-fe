@@ -10,6 +10,8 @@ import { Input } from '../../../components/ui/input';
 import { Badge } from '../../../components/ui/badge';
 import { Card } from '../../../components/ui/card';
 import { Modal } from '../../../components/ui/modal';
+import { Label } from '../../../components/ui/label';
+import { Combobox } from '../../../components/ui/combobox';
 import { TableSkeleton } from '../../../components/ui/loader';
 import { toast } from '../../../stores/toast.store';
 import { DEPARTMENT_MESSAGES } from '../../../constants/messages';
@@ -162,7 +164,7 @@ export default function DepartmentsPage() {
       >
         <form onSubmit={handleCreateSubmit} className="space-y-4" noValidate>
           {formError && (
-            <div className="p-3 rounded-lg bg-red-50 text-danger text-xs flex items-center gap-2 border border-red-200">
+            <div className="p-3 rounded-none bg-red-50 text-danger text-xs flex items-center gap-2 border border-red-200">
               <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{formError}</span>
             </div>
@@ -188,19 +190,20 @@ export default function DepartmentsPage() {
           />
 
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-foreground">Department Head (Optional)</label>
-            <select
+            <Label>Department Head (Optional)</Label>
+            <Combobox
+              options={employees.map((emp) => ({
+                value: emp._id,
+                label: emp.fullName,
+                sublabel: `${emp.designation || 'Staff'} • ${emp.employeeId}`,
+                badge: emp.employeeId,
+              }))}
               value={headEmployeeId}
-              onChange={(e) => setHeadEmployeeId(e.target.value)}
-              className="w-full text-xs p-2.5 rounded-lg border border-border bg-white focus:outline-none focus:ring-1 focus:ring-primary"
-            >
-              <option value="">-- None / Select later --</option>
-              {employees.map((emp) => (
-                <option key={emp._id} value={emp._id}>
-                  {emp.fullName} ({emp.designation})
-                </option>
-              ))}
-            </select>
+              onChange={(val) => setHeadEmployeeId(val)}
+              placeholder="Search or choose department head..."
+              searchPlaceholder="Search employee name, ID, or title..."
+              emptyText="No employees found."
+            />
           </div>
 
           <div className="flex justify-end gap-2 pt-3 border-t border-border">

@@ -11,6 +11,15 @@ import { Badge } from '../../../components/ui/badge';
 import { Card } from '../../../components/ui/card';
 import { Modal } from '../../../components/ui/modal';
 import { ConfirmationDialog } from '../../../components/ui/confirmation-dialog';
+import { Label } from '../../../components/ui/label';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '../../../components/ui/select';
+import { Combobox } from '../../../components/ui/combobox';
 import { TableSkeleton } from '../../../components/ui/loader';
 import { toast } from '../../../stores/toast.store';
 import { useAuthStore } from '../../../stores/auth.store';
@@ -215,24 +224,30 @@ export default function UsersPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search by name or email..."
-            className="w-full pl-9 pr-3.5 py-2 text-xs bg-surface rounded-lg border border-border focus:outline-none focus:ring-1 focus:ring-primary"
+            className="w-full pl-9 pr-3.5 py-2 text-xs bg-surface rounded-none border border-border focus:outline-none focus:border-foreground"
           />
         </div>
 
-        <select
-          value={roleFilter}
-          onChange={(e) => setRoleFilter(e.target.value)}
-          className="text-xs p-2 rounded-lg border border-border bg-surface text-foreground focus:ring-1 focus:ring-primary focus:outline-none w-full sm:w-auto"
-        >
-          <option value="">All Roles</option>
-          {currentUser?.role === 'SUPER_ADMIN' && (
-            <option value="SUPER_ADMIN">SUPER_ADMIN</option>
-          )}
-          <option value="ORG_ADMIN">ORG_ADMIN</option>
-          <option value="RECEPTIONIST">RECEPTIONIST</option>
-          <option value="SECURITY">SECURITY</option>
-          <option value="EMPLOYEE">EMPLOYEE</option>
-        </select>
+        <div className="w-full sm:w-44">
+          <Select
+            value={roleFilter || 'ALL'}
+            onValueChange={(val) => setRoleFilter(val === 'ALL' ? '' : val)}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="All Roles" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="ALL">All Roles</SelectItem>
+              {currentUser?.role === 'SUPER_ADMIN' && (
+                <SelectItem value="SUPER_ADMIN">SUPER_ADMIN</SelectItem>
+              )}
+              <SelectItem value="ORG_ADMIN">ORG_ADMIN</SelectItem>
+              <SelectItem value="RECEPTIONIST">RECEPTIONIST</SelectItem>
+              <SelectItem value="SECURITY">SECURITY</SelectItem>
+              <SelectItem value="EMPLOYEE">EMPLOYEE</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
       </div>
 
       {/* Users Table */}
@@ -265,7 +280,7 @@ export default function UsersPage() {
                   <tr key={u.id || (u as any)._id} className="hover:bg-gray-50/50 transition-colors">
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-2.5">
-                        <div className="w-8 h-8 rounded-full bg-[#22285B] text-white flex items-center justify-center font-bold text-xs uppercase">
+                        <div className="w-8 h-8 rounded-none bg-black text-white flex items-center justify-center font-bold font-mono text-xs uppercase border border-zinc-800">
                           {u.firstName?.charAt(0)}
                         </div>
                         <div>
@@ -386,7 +401,7 @@ export default function UsersPage() {
       >
         <form onSubmit={handleCreateSubmit} className="space-y-4" noValidate>
           {formError && (
-            <div className="p-3 rounded-lg bg-red-50 text-danger text-xs flex items-center gap-2 border border-red-200">
+            <div className="p-3 rounded-none bg-red-50 text-danger text-xs flex items-center gap-2 border border-red-200">
               <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{formError}</span>
             </div>
@@ -447,27 +462,25 @@ export default function UsersPage() {
 
           {currentUser?.role === 'SUPER_ADMIN' && role !== 'SUPER_ADMIN' && (
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-foreground">Organization *</label>
-              <select
+              <Label>Organization *</Label>
+              <Select
                 value={selectedOrgId}
-                onChange={(e) => {
-                  setSelectedOrgId(e.target.value);
+                onValueChange={(val) => {
+                  setSelectedOrgId(val);
                   if (errors.organizationId) setErrors((prev) => ({ ...prev, organizationId: '' }));
                 }}
-                className={`w-full text-xs p-2.5 rounded-lg border bg-white focus:outline-none ${
-                  errors.organizationId
-                    ? 'border-danger focus:border-danger focus:ring-1 focus:ring-danger'
-                    : 'border-border focus:ring-1 focus:ring-primary'
-                }`}
-                required
               >
-                <option value="">-- Select Organization --</option>
-                {orgsData.map((org) => (
-                  <option key={org._id} value={org._id}>
-                    {org.name} ({org.slug})
-                  </option>
-                ))}
-              </select>
+                <SelectTrigger error={!!errors.organizationId}>
+                  <SelectValue placeholder="-- Select Organization --" />
+                </SelectTrigger>
+                <SelectContent>
+                  {orgsData.map((org) => (
+                    <SelectItem key={org._id} value={org._id}>
+                      {org.name} ({org.slug})
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
               {errors.organizationId && (
                 <p className="text-xs text-danger font-medium mt-1">{errors.organizationId}</p>
               )}
@@ -476,54 +489,62 @@ export default function UsersPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-foreground">Role *</label>
-              <select
+              <Label>Role *</Label>
+              <Select
                 value={role}
-                onChange={(e) => setRole(e.target.value as Role)}
-                className="w-full text-xs p-2.5 rounded-lg border border-border bg-white focus:outline-none focus:ring-1 focus:ring-primary"
-                required
+                onValueChange={(val) => setRole(val as Role)}
               >
-                <option value="RECEPTIONIST">RECEPTIONIST</option>
-                <option value="SECURITY">SECURITY</option>
-                <option value="EMPLOYEE">EMPLOYEE</option>
-                <option value="ORG_ADMIN">ORG_ADMIN</option>
-                {currentUser?.role === 'SUPER_ADMIN' && (
-                  <option value="SUPER_ADMIN">SUPER_ADMIN</option>
-                )}
-              </select>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select role" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="RECEPTIONIST">RECEPTIONIST</SelectItem>
+                  <SelectItem value="SECURITY">SECURITY</SelectItem>
+                  <SelectItem value="EMPLOYEE">EMPLOYEE</SelectItem>
+                  <SelectItem value="ORG_ADMIN">ORG_ADMIN</SelectItem>
+                  {currentUser?.role === 'SUPER_ADMIN' && (
+                    <SelectItem value="SUPER_ADMIN">SUPER_ADMIN</SelectItem>
+                  )}
+                </SelectContent>
+              </Select>
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-foreground">Department (Optional)</label>
-              <select
-                value={departmentId}
-                onChange={(e) => setDepartmentId(e.target.value)}
-                className="w-full text-xs p-2.5 rounded-lg border border-border bg-white focus:outline-none focus:ring-1 focus:ring-primary"
+              <Label>Department (Optional)</Label>
+              <Select
+                value={departmentId || 'none'}
+                onValueChange={(val) => setDepartmentId(val === 'none' ? '' : val)}
               >
-                <option value="">-- None / General --</option>
-                {departments.map((d) => (
-                  <option key={d._id} value={d._id}>
-                    {d.name}
-                  </option>
-                ))}
-              </select>
+                <SelectTrigger>
+                  <SelectValue placeholder="-- None / General --" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="none">-- None / General --</SelectItem>
+                  {departments.map((d) => (
+                    <SelectItem key={d._id} value={d._id}>
+                      {d.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-foreground">Link to Employee Record (Optional)</label>
-            <select
+            <Label>Link to Employee Record (Optional)</Label>
+            <Combobox
+              options={employees.map((emp) => ({
+                value: emp._id,
+                label: emp.fullName,
+                sublabel: `${emp.designation || 'Staff'} • ${emp.employeeId}`,
+                badge: emp.employeeId,
+              }))}
               value={employeeId}
-              onChange={(e) => setEmployeeId(e.target.value)}
-              className="w-full text-xs p-2.5 rounded-lg border border-border bg-white focus:outline-none focus:ring-1 focus:ring-primary"
-            >
-              <option value="">-- No employee record link --</option>
-              {employees.map((emp) => (
-                <option key={emp._id} value={emp._id}>
-                  {emp.fullName} ({emp.employeeId} - {emp.designation})
-                </option>
-              ))}
-            </select>
+              onChange={(val) => setEmployeeId(val)}
+              placeholder="Search or choose employee..."
+              searchPlaceholder="Search employee name or ID..."
+              emptyText="No employee record found."
+            />
           </div>
 
           <div className="flex justify-end gap-2 pt-3 border-t border-border">

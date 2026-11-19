@@ -281,7 +281,7 @@ export function QrScanner({ onScan, isProcessing = false, onClose, className = '
   };
 
   return (
-    <div className={`relative overflow-hidden rounded-2xl bg-slate-950 text-white shadow-xl ${className}`}>
+    <div className={`relative overflow-hidden rounded-none border border-zinc-800 bg-black text-white shadow-2xl font-mono ${className}`}>
       {/* Hidden offscreen canvas for frame extraction */}
       <canvas ref={canvasRef} className="hidden" />
 
@@ -295,12 +295,12 @@ export function QrScanner({ onScan, isProcessing = false, onClose, className = '
       />
 
       {/* Top Scanner Header Bar */}
-      <div className="absolute top-0 inset-x-0 z-30 flex items-center justify-between p-3 bg-gradient-to-b from-black/85 via-black/50 to-transparent">
+      <div className="absolute top-0 inset-x-0 z-30 flex items-center justify-between p-3 bg-black/90 border-b border-white/10">
         <div className="flex items-center gap-2">
-          <div className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-          <span className="text-xs font-bold tracking-tight text-white flex items-center gap-1.5">
+          <div className="w-2 h-2 rounded-none bg-emerald-400 animate-ping" />
+          <span className="text-xs font-mono font-bold tracking-wider text-white uppercase flex items-center gap-1.5">
             <ScanLine className="w-3.5 h-3.5 text-emerald-400" />
-            Live Pass Scanner
+            SCANNER.OPTICAL_HUD
           </span>
         </div>
 
@@ -309,7 +309,7 @@ export function QrScanner({ onScan, isProcessing = false, onClose, className = '
           <button
             type="button"
             onClick={() => setSoundEnabled(!soundEnabled)}
-            className="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-colors"
+            className="p-1.5 rounded-none border border-white/10 bg-white/5 hover:bg-white/15 text-white transition-colors"
             title={soundEnabled ? 'Mute beep' : 'Enable beep'}
           >
             {soundEnabled ? <Volume2 className="w-3.5 h-3.5" /> : <VolumeX className="w-3.5 h-3.5 text-red-400" />}
@@ -319,7 +319,7 @@ export function QrScanner({ onScan, isProcessing = false, onClose, className = '
           <button
             type="button"
             onClick={() => fileInputRef.current?.click()}
-            className="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-colors"
+            className="p-1.5 rounded-none border border-white/10 bg-white/5 hover:bg-white/15 text-white transition-colors"
             title="Upload QR image file"
           >
             <Upload className="w-3.5 h-3.5" />
@@ -330,7 +330,7 @@ export function QrScanner({ onScan, isProcessing = false, onClose, className = '
             <button
               type="button"
               onClick={toggleFacingMode}
-              className="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-colors"
+              className="p-1.5 rounded-none border border-white/10 bg-white/5 hover:bg-white/15 text-white transition-colors"
               title="Switch camera"
             >
               <SwitchCamera className="w-3.5 h-3.5" />
@@ -342,7 +342,7 @@ export function QrScanner({ onScan, isProcessing = false, onClose, className = '
             <button
               type="button"
               onClick={onClose}
-              className="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-colors"
+              className="p-1.5 rounded-none border border-white/10 bg-white/5 hover:bg-white/15 text-white transition-colors"
               title="Close camera"
             >
               <X className="w-3.5 h-3.5" />
@@ -352,7 +352,7 @@ export function QrScanner({ onScan, isProcessing = false, onClose, className = '
       </div>
 
       {/* Main Video Viewport - Video is ALWAYS present in DOM and attached */}
-      <div className="relative w-full h-[280px] sm:h-[320px] bg-slate-900 flex items-center justify-center overflow-hidden">
+      <div className="relative w-full h-[280px] sm:h-[320px] bg-black flex items-center justify-center overflow-hidden">
         <video
           ref={(el) => {
             videoRef.current = el;
@@ -379,37 +379,37 @@ export function QrScanner({ onScan, isProcessing = false, onClose, className = '
         {permissionState === 'granted' && (
           <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
             {/* Darkened surroundings */}
-            <div className="absolute inset-0 bg-black/35" />
+            <div className="absolute inset-0 bg-black/45" />
 
             {/* Clear central target square */}
             <div
-              className={`relative w-52 h-52 sm:w-56 sm:h-56 rounded-2xl transition-all duration-300 ${
+              className={`relative w-52 h-52 sm:w-56 sm:h-56 rounded-none transition-all duration-200 ${
                 scanSuccessAnim
-                  ? 'border-2 border-emerald-400 shadow-[0_0_30px_rgba(52,211,153,0.6)] bg-emerald-500/10'
+                  ? 'border-2 border-emerald-400 bg-emerald-500/10'
                   : isProcessing
-                  ? 'border-2 border-primary shadow-[0_0_20px_rgba(34,40,91,0.5)]'
+                  ? 'border-2 border-white'
                   : 'border border-white/20'
               }`}
             >
               {/* Corner Reticles */}
               <div
-                className={`absolute -top-1 -left-1 w-6 h-6 border-t-3 border-l-3 rounded-tl-lg transition-colors ${
-                  scanSuccessAnim ? 'border-emerald-400' : 'border-emerald-400'
+                className={`absolute -top-1 -left-1 w-6 h-6 border-t-2 border-l-2 rounded-none transition-colors ${
+                  scanSuccessAnim ? 'border-emerald-400' : 'border-white'
                 }`}
               />
               <div
-                className={`absolute -top-1 -right-1 w-6 h-6 border-t-3 border-r-3 rounded-tr-lg transition-colors ${
-                  scanSuccessAnim ? 'border-emerald-400' : 'border-emerald-400'
+                className={`absolute -top-1 -right-1 w-6 h-6 border-t-2 border-r-2 rounded-none transition-colors ${
+                  scanSuccessAnim ? 'border-emerald-400' : 'border-white'
                 }`}
               />
               <div
-                className={`absolute -bottom-1 -left-1 w-6 h-6 border-b-3 border-l-3 rounded-bl-lg transition-colors ${
-                  scanSuccessAnim ? 'border-emerald-400' : 'border-emerald-400'
+                className={`absolute -bottom-1 -left-1 w-6 h-6 border-b-2 border-l-2 rounded-none transition-colors ${
+                  scanSuccessAnim ? 'border-emerald-400' : 'border-white'
                 }`}
               />
               <div
-                className={`absolute -bottom-1 -right-1 w-6 h-6 border-b-3 border-r-3 rounded-br-lg transition-colors ${
-                  scanSuccessAnim ? 'border-emerald-400' : 'border-emerald-400'
+                className={`absolute -bottom-1 -right-1 w-6 h-6 border-b-2 border-r-2 rounded-none transition-colors ${
+                  scanSuccessAnim ? 'border-emerald-400' : 'border-white'
                 }`}
               />
 
@@ -421,20 +421,20 @@ export function QrScanner({ onScan, isProcessing = false, onClose, className = '
               {/* Success Badge Inside Reticle */}
               {scanSuccessAnim && (
                 <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 animate-in zoom-in-90 duration-200">
-                  <div className="w-12 h-12 rounded-full bg-emerald-500 text-white flex items-center justify-center shadow-lg shadow-emerald-500/50">
-                    <CheckCircle2 className="w-7 h-7 stroke-[2.5]" />
+                  <div className="w-10 h-10 rounded-none bg-emerald-500 text-black flex items-center justify-center">
+                    <CheckCircle2 className="w-6 h-6 stroke-[2.5]" />
                   </div>
-                  <span className="text-xs font-bold text-white bg-black/70 px-2.5 py-1 rounded-full backdrop-blur-sm border border-emerald-400/40">
-                    QR Pass Decoded!
+                  <span className="text-[10px] font-mono uppercase font-bold text-black bg-emerald-400 px-2 py-0.5 rounded-none">
+                    [PASS_VERIFIED]
                   </span>
                 </div>
               )}
 
               {/* Processing Spinner Inside Reticle */}
               {isProcessing && !scanSuccessAnim && (
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-black/50 backdrop-blur-xs rounded-2xl">
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-black/60 rounded-none">
                   <Spinner size="lg" variant="emerald" />
-                  <span className="text-xs font-semibold text-white">Verifying Pass...</span>
+                  <span className="text-xs font-mono uppercase text-white tracking-wider">DECODING...</span>
                 </div>
               )}
             </div>
@@ -444,12 +444,12 @@ export function QrScanner({ onScan, isProcessing = false, onClose, className = '
         {/* Prompt / Loading Permission State */}
         {permissionState === 'prompt' && (
           <div className="flex flex-col items-center gap-3 p-6 text-center z-10 animate-in fade-in duration-200">
-            <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center">
-              <Camera className="w-6 h-6 text-emerald-400 animate-pulse" />
+            <div className="w-10 h-10 rounded-none bg-white/10 border border-white/20 flex items-center justify-center">
+              <Camera className="w-5 h-5 text-emerald-400 animate-pulse" />
             </div>
             <div>
-              <p className="text-sm font-semibold text-white">Connecting to Camera...</p>
-              <p className="text-xs text-slate-400 mt-1">Starting live video feed</p>
+              <p className="text-xs font-mono uppercase tracking-wider text-white">INITIALIZING_OPTICAL_FEED</p>
+              <p className="text-xs text-zinc-400 mt-1 font-sans">Connecting to local video capture device...</p>
             </div>
             <Spinner size="sm" variant="emerald" className="mt-2" />
           </div>
@@ -458,12 +458,12 @@ export function QrScanner({ onScan, isProcessing = false, onClose, className = '
         {/* Denied / Error State */}
         {permissionState === 'denied' && (
           <div className="flex flex-col items-center gap-3 p-6 text-center max-w-sm z-10 animate-in fade-in duration-200">
-            <div className="w-12 h-12 rounded-2xl bg-red-500/10 text-red-400 flex items-center justify-center border border-red-500/20">
-              <CameraOff className="w-6 h-6" />
+            <div className="w-10 h-10 rounded-none bg-red-500/10 text-red-400 flex items-center justify-center border border-red-500/20">
+              <CameraOff className="w-5 h-5" />
             </div>
             <div>
-              <p className="text-sm font-semibold text-white">Camera Access Denied</p>
-              <p className="text-xs text-slate-300 mt-1 leading-relaxed">
+              <p className="text-xs font-mono uppercase tracking-wider text-white">FEED_ACCESS_DENIED</p>
+              <p className="text-xs text-zinc-300 mt-1 leading-relaxed font-sans">
                 {errorMessage || CHECK_IN_MESSAGES.CAMERA_PERMISSION_DENIED}
               </p>
             </div>
@@ -472,19 +472,19 @@ export function QrScanner({ onScan, isProcessing = false, onClose, className = '
                 size="sm"
                 variant="outline"
                 onClick={startCamera}
-                className="bg-white/10 hover:bg-white/20 text-white border-white/20"
+                className="rounded-none bg-white/10 hover:bg-white/20 text-white border-white/20"
               >
                 <RefreshCw className="w-3.5 h-3.5 mr-1.5" />
-                <span>Retry Camera</span>
+                <span>Retry</span>
               </Button>
               <Button
                 size="sm"
                 variant="outline"
                 onClick={() => fileInputRef.current?.click()}
-                className="bg-white/10 hover:bg-white/20 text-white border-white/20"
+                className="rounded-none bg-white/10 hover:bg-white/20 text-white border-white/20"
               >
                 <Upload className="w-3.5 h-3.5 mr-1.5" />
-                <span>Upload QR Image</span>
+                <span>Upload File</span>
               </Button>
             </div>
           </div>
@@ -493,12 +493,12 @@ export function QrScanner({ onScan, isProcessing = false, onClose, className = '
         {/* Unsupported State */}
         {permissionState === 'unsupported' && (
           <div className="flex flex-col items-center gap-3 p-6 text-center max-w-sm z-10 animate-in fade-in duration-200">
-            <div className="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-400 flex items-center justify-center border border-amber-500/20">
-              <AlertCircle className="w-6 h-6" />
+            <div className="w-10 h-10 rounded-none bg-amber-500/10 text-amber-400 flex items-center justify-center border border-amber-500/20">
+              <AlertCircle className="w-5 h-5" />
             </div>
             <div>
-              <p className="text-sm font-semibold text-white">Camera Unavailable</p>
-              <p className="text-xs text-slate-300 mt-1 leading-relaxed">
+              <p className="text-xs font-mono uppercase tracking-wider text-white">HARDWARE_NOT_SUPPORTED</p>
+              <p className="text-xs text-zinc-300 mt-1 leading-relaxed font-sans">
                 {errorMessage || CHECK_IN_MESSAGES.CAMERA_NOT_SUPPORTED}
               </p>
             </div>
@@ -506,26 +506,26 @@ export function QrScanner({ onScan, isProcessing = false, onClose, className = '
               size="sm"
               variant="outline"
               onClick={() => fileInputRef.current?.click()}
-              className="mt-2 bg-white/10 hover:bg-white/20 text-white border-white/20"
+              className="mt-2 rounded-none bg-white/10 hover:bg-white/20 text-white border-white/20"
             >
               <Upload className="w-3.5 h-3.5 mr-1.5" />
-              <span>Upload Pass Image</span>
+              <span>Upload Pass</span>
             </Button>
           </div>
         )}
       </div>
 
       {/* Bottom Instructions / Status Footer */}
-      <div className="p-3 bg-slate-900/90 border-t border-white/10 flex items-center justify-between text-xs text-slate-400">
-        <span className="truncate">
+      <div className="p-3 bg-zinc-950 border-t border-white/10 flex items-center justify-between text-xs text-zinc-400">
+        <span className="truncate font-sans">
           {permissionState === 'granted'
-            ? 'Align visitor QR pass within the frame'
+            ? 'Align visitor QR pass within the optical frame'
             : 'Standby mode'}
         </span>
         {permissionState === 'granted' && (
-          <span className="text-[11px] font-mono text-emerald-400 font-medium shrink-0 ml-2 flex items-center gap-1">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            Auto-Detect Active
+          <span className="text-[10px] font-mono text-emerald-400 font-medium shrink-0 ml-2 flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-none bg-emerald-400 animate-pulse" />
+            [AUTO_SCAN]
           </span>
         )}
       </div>

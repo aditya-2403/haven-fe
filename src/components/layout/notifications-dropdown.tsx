@@ -17,7 +17,7 @@ export function NotificationsDropdown() {
       const res = await api.get('/notifications');
       return res.data?.data || [];
     },
-    refetchInterval: 15000, // auto-refresh every 15s
+    refetchInterval: 15000,
   });
 
   const markReadMutation = useMutation({
@@ -45,11 +45,12 @@ export function NotificationsDropdown() {
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="relative p-2 rounded-lg text-muted hover:text-foreground hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/20"
+        className="relative p-1.5 rounded-none text-muted hover:text-foreground hover:bg-zinc-100 transition-colors focus:outline-none"
+        aria-label="Notifications"
       >
-        <Bell className="w-5 h-5" />
+        <Bell className="w-4 h-4" />
         {unreadCount > 0 && (
-          <span className="absolute top-1.5 right-1.5 w-4 h-4 rounded-full bg-danger text-white text-[10px] font-bold flex items-center justify-center">
+          <span className="absolute -top-0.5 -right-0.5 px-1 py-0.2 rounded-none bg-red-600 text-white text-[9px] font-mono font-bold flex items-center justify-center">
             {unreadCount > 9 ? '9+' : unreadCount}
           </span>
         )}
@@ -61,13 +62,13 @@ export function NotificationsDropdown() {
             className="fixed inset-0 z-30"
             onClick={() => setIsOpen(false)}
           />
-          <div className="fixed sm:absolute inset-x-3 sm:inset-x-auto sm:right-0 top-16 sm:top-auto sm:mt-2 sm:w-96 rounded-xl bg-surface border border-border shadow-xl z-40 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-150">
-            <div className="p-3.5 border-b border-border flex items-center justify-between bg-gray-50/70">
+          <div className="fixed sm:absolute inset-x-2 sm:inset-x-auto sm:right-0 top-14 sm:top-auto sm:mt-1.5 sm:w-96 rounded-none bg-surface border border-border shadow-2xl z-40 overflow-hidden">
+            <div className="p-3 border-b border-border flex items-center justify-between bg-zinc-50">
               <div className="flex items-center gap-2">
-                <span className="text-xs font-semibold text-foreground">Notifications</span>
+                <span className="text-xs font-mono font-semibold text-foreground uppercase tracking-tight">Telemetry Alerts</span>
                 {unreadCount > 0 && (
-                  <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-primary/10 text-primary font-bold">
-                    {unreadCount} new
+                  <span className="text-[9px] font-mono px-1.5 py-0.2 rounded-none bg-black text-white font-bold">
+                    {unreadCount} NEW
                   </span>
                 )}
               </div>
@@ -75,31 +76,31 @@ export function NotificationsDropdown() {
                 <button
                   type="button"
                   onClick={() => markAllReadMutation.mutate()}
-                  className="text-[11px] text-primary hover:underline font-medium flex items-center gap-1"
+                  className="text-[10px] font-mono text-zinc-600 hover:text-black font-medium flex items-center gap-1"
                 >
-                  <CheckCheck className="w-3.5 h-3.5" />
-                  Mark all read
+                  <CheckCheck className="w-3 h-3" />
+                  MARK ALL READ
                 </button>
               )}
             </div>
 
-            <div className="max-h-80 overflow-y-auto divide-y divide-border/60">
+            <div className="max-h-80 overflow-y-auto divide-y divide-border">
               {notifications.length === 0 ? (
-                <div className="p-6 text-center text-xs text-muted">
-                  No notifications yet.
+                <div className="p-6 text-center text-xs font-mono text-muted">
+                  No active alerts.
                 </div>
               ) : (
                 notifications.map((item) => (
                   <div
                     key={item._id}
-                    className={`p-3.5 transition-colors hover:bg-gray-50/80 flex items-start justify-between gap-3 ${
-                      !item.read ? 'bg-primary/5' : ''
+                    className={`p-3 transition-colors hover:bg-zinc-50 flex items-start justify-between gap-3 ${
+                      !item.read ? 'bg-zinc-50/70 border-l-2 border-l-black' : ''
                     }`}
                   >
-                    <div className="space-y-1">
-                      <p className="text-xs font-semibold text-foreground">{item.title}</p>
+                    <div className="space-y-0.5">
+                      <p className="text-xs font-semibold text-foreground tracking-tight">{item.title}</p>
                       <p className="text-xs text-muted leading-relaxed">{item.message}</p>
-                      <span className="text-[10px] text-muted block pt-1">
+                      <span className="text-[10px] font-mono text-muted block pt-0.5">
                         {formatDateTime(item.createdAt)}
                       </span>
                     </div>
@@ -107,7 +108,7 @@ export function NotificationsDropdown() {
                       <button
                         type="button"
                         onClick={() => markReadMutation.mutate(item._id)}
-                        className="text-muted hover:text-primary p-1 rounded transition-colors"
+                        className="text-muted hover:text-black p-1 rounded-none transition-colors"
                         title="Mark as read"
                       >
                         <Check className="w-3.5 h-3.5" />
@@ -123,4 +124,3 @@ export function NotificationsDropdown() {
     </div>
   );
 }
-

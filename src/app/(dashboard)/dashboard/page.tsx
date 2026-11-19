@@ -153,16 +153,16 @@ export default function DashboardPage() {
           <Card>
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-xs font-medium text-muted">Total Organizations</p>
-                <h3 className="text-2xl font-bold text-foreground mt-1">
+                <p className="text-xs font-mono uppercase tracking-wider text-muted">Total Organizations</p>
+                <h3 className="text-2xl font-mono font-bold text-foreground mt-1">
                   {superAdminStats?.totalOrganizations ?? 0}
                 </h3>
               </div>
-              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
-                <Building2 className="w-5 h-5" />
+              <div className="w-9 h-9 rounded-none bg-zinc-100 border border-border flex items-center justify-center text-foreground">
+                <Building2 className="w-4 h-4" />
               </div>
             </div>
-            <div className="mt-3 flex items-center gap-2 text-xs">
+            <div className="mt-3 flex items-center gap-2 text-xs font-mono">
               <span className="text-emerald-600 font-semibold">
                 {superAdminStats?.activeOrganizations ?? 0} active
               </span>
@@ -176,13 +176,13 @@ export default function DashboardPage() {
           <Card>
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-xs font-medium text-muted">Platform Users</p>
-                <h3 className="text-2xl font-bold text-foreground mt-1">
+                <p className="text-xs font-mono uppercase tracking-wider text-muted">Platform Users</p>
+                <h3 className="text-2xl font-mono font-bold text-foreground mt-1">
                   {superAdminStats?.totalUsers ?? 0}
                 </h3>
               </div>
-              <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600">
-                <Users className="w-5 h-5" />
+              <div className="w-9 h-9 rounded-none bg-zinc-100 border border-border flex items-center justify-center text-foreground">
+                <Users className="w-4 h-4" />
               </div>
             </div>
             <p className="text-xs text-muted mt-3">Across all registered tenants</p>
@@ -191,13 +191,13 @@ export default function DashboardPage() {
           <Card>
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-xs font-medium text-muted">Registered Visitors</p>
-                <h3 className="text-2xl font-bold text-foreground mt-1">
+                <p className="text-xs font-mono uppercase tracking-wider text-muted">Registered Visitors</p>
+                <h3 className="text-2xl font-mono font-bold text-foreground mt-1">
                   {superAdminStats?.totalVisitors ?? 0}
                 </h3>
               </div>
-              <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600">
-                <UserCheck className="w-5 h-5" />
+              <div className="w-9 h-9 rounded-none bg-zinc-100 border border-border flex items-center justify-center text-foreground">
+                <UserCheck className="w-4 h-4" />
               </div>
             </div>
             <p className="text-xs text-muted mt-3">Profiles in system repository</p>
@@ -206,17 +206,17 @@ export default function DashboardPage() {
           <Card>
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-xs font-medium text-muted">System Status</p>
-                <h3 className="text-lg font-bold text-emerald-600 mt-1 flex items-center gap-1.5">
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                  Operational
+                <p className="text-xs font-mono uppercase tracking-wider text-muted">System Status</p>
+                <h3 className="text-base font-mono font-bold text-emerald-600 mt-1 flex items-center gap-1.5 uppercase">
+                  <span className="w-2 h-2 rounded-none bg-emerald-500 animate-pulse" />
+                  OPERATIONAL
                 </h3>
               </div>
-              <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600">
-                <CheckCircle2 className="w-5 h-5" />
+              <div className="w-9 h-9 rounded-none bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-700">
+                <CheckCircle2 className="w-4 h-4" />
               </div>
             </div>
-            <p className="text-xs text-muted mt-3">MongoDB & JWT Engine Online</p>
+            <p className="text-xs font-mono text-muted mt-3">MongoDB & JWT Engine Online</p>
           </Card>
         </div>
 
@@ -280,13 +280,13 @@ export default function DashboardPage() {
           <Card>
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-xs font-medium text-muted">Pending Your Approval</p>
-                <h3 className="text-2xl font-bold text-foreground mt-1">
+                <p className="text-xs font-mono uppercase tracking-wider text-muted">Pending Your Approval</p>
+                <h3 className="text-2xl font-mono font-bold text-foreground mt-1">
                   {pendingApprovals.length}
                 </h3>
               </div>
-              <div className="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600">
-                <ClipboardCheck className="w-5 h-5" />
+              <div className="w-9 h-9 rounded-none bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-700">
+                <ClipboardCheck className="w-4 h-4" />
               </div>
             </div>
             <p className="text-xs text-muted mt-3">Action required</p>
@@ -295,13 +295,13 @@ export default function DashboardPage() {
           <Card>
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-xs font-medium text-muted">Upcoming Visits</p>
-                <h3 className="text-2xl font-bold text-foreground mt-1">
+                <p className="text-xs font-mono uppercase tracking-wider text-muted">Upcoming Visits</p>
+                <h3 className="text-2xl font-mono font-bold text-foreground mt-1">
                   {upcomingVisits.filter((v) => v.status === 'APPROVED').length}
                 </h3>
               </div>
-              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
-                <CalendarDays className="w-5 h-5" />
+              <div className="w-9 h-9 rounded-none bg-zinc-100 border border-border flex items-center justify-center text-foreground">
+                <CalendarDays className="w-4 h-4" />
               </div>
             </div>
             <p className="text-xs text-muted mt-3">Approved & scheduled</p>
@@ -310,13 +310,13 @@ export default function DashboardPage() {
           <Card>
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-xs font-medium text-muted">Completed Visits</p>
-                <h3 className="text-2xl font-bold text-foreground mt-1">
+                <p className="text-xs font-mono uppercase tracking-wider text-muted">Completed Visits</p>
+                <h3 className="text-2xl font-mono font-bold text-foreground mt-1">
                   {upcomingVisits.filter((v) => v.status === 'CHECKED_OUT').length}
                 </h3>
               </div>
-              <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600">
-                <CheckCircle2 className="w-5 h-5" />
+              <div className="w-9 h-9 rounded-none bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-700">
+                <CheckCircle2 className="w-4 h-4" />
               </div>
             </div>
             <p className="text-xs text-muted mt-3">Past visitor logs</p>
@@ -340,7 +340,7 @@ export default function DashboardPage() {
               {pendingApprovals.map((visit) => (
                 <div
                   key={visit._id}
-                  className="p-3.5 sm:p-4 rounded-xl border border-border bg-gray-50/50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4"
+                  className="p-3.5 sm:p-4 rounded-none border border-border bg-surface flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4"
                 >
                   <div className="space-y-1 min-w-0 w-full sm:w-auto">
                     <div className="flex flex-wrap items-center gap-2">
@@ -348,7 +348,7 @@ export default function DashboardPage() {
                         {visit.visitorId?.fullName}
                       </span>
                       {visit.visitorId?.company && (
-                        <span className="text-xs text-muted bg-white px-2 py-0.5 rounded border border-border truncate max-w-[200px]">
+                        <span className="text-[11px] font-mono text-muted bg-zinc-100 px-2 py-0.5 rounded-none border border-border truncate max-w-[200px]">
                           {visit.visitorId.company}
                         </span>
                       )}
@@ -356,7 +356,7 @@ export default function DashboardPage() {
                     <p className="text-xs text-muted truncate">
                       <span className="font-medium text-foreground">Purpose:</span> {visit.purpose}
                     </p>
-                    <p className="text-[11px] text-muted flex flex-wrap items-center gap-1.5 sm:gap-2">
+                    <p className="text-[11px] text-muted flex flex-wrap items-center gap-1.5 sm:gap-2 font-mono">
                       <span>Date: {formatDate(visit.scheduledDate)} at {visit.scheduledTime}</span>
                       <span>•</span>
                       <span>Phone: {visit.visitorId?.phone}</span>
@@ -396,7 +396,7 @@ export default function DashboardPage() {
         >
           {selectedVisitForApproval && (
             <div className="space-y-4">
-              <div className="p-3 bg-gray-50 rounded-lg text-xs space-y-1.5 border border-border">
+              <div className="p-3 bg-zinc-50 rounded-none text-xs space-y-1.5 border border-border font-mono">
                 <p><strong>Visitor:</strong> {selectedVisitForApproval.visitorId?.fullName}</p>
                 <p><strong>Company:</strong> {selectedVisitForApproval.visitorId?.company || 'N/A'}</p>
                 <p><strong>Scheduled:</strong> {formatDate(selectedVisitForApproval.scheduledDate)} at {selectedVisitForApproval.scheduledTime}</p>
@@ -409,7 +409,7 @@ export default function DashboardPage() {
                   value={approvalRemarks}
                   onChange={(e) => setApprovalRemarks(e.target.value)}
                   placeholder="e.g. Conference Room 3B booked, escort required."
-                  className="w-full text-xs p-2.5 rounded-lg border border-border focus:ring-1 focus:ring-primary focus:outline-none"
+                  className="w-full text-xs p-2.5 rounded-none border border-border focus:border-foreground focus:outline-none"
                   rows={3}
                 />
               </div>
@@ -480,7 +480,7 @@ export default function DashboardPage() {
               </Button>
             </Link>
             {user.role === 'RECEPTIONIST' && (
-              <Link href="/appointments" className="flex-1 sm:flex-initial">
+              <Link href="/appointments?create=true&type=walk-in" className="flex-1 sm:flex-initial">
                 <Button size="sm" variant="outline" className="w-full">
                   <Plus className="w-4 h-4" />
                   <span>New Walk-in</span>
@@ -541,7 +541,7 @@ export default function DashboardPage() {
           </div>
 
           {activeVisitors.length === 0 ? (
-            <div className="py-8 text-center text-xs text-muted m-4 border border-dashed border-border rounded-xl">
+            <div className="py-8 text-center text-xs text-muted m-4 border border-dashed border-border rounded-none">
               No visitors are currently checked in to the facility.
             </div>
           ) : (
@@ -601,7 +601,7 @@ export default function DashboardPage() {
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
-          <Link href="/appointments" className="flex-1 sm:flex-initial">
+          <Link href="/appointments?create=true" className="flex-1 sm:flex-initial">
             <Button size="sm" variant="primary" className="w-full">
               <Plus className="w-4 h-4" />
               <span>New Appointment</span>
@@ -621,13 +621,13 @@ export default function DashboardPage() {
         <Card>
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-xs font-medium text-muted">Visitors Today</p>
-              <h3 className="text-2xl font-bold text-foreground mt-1">
+              <p className="text-xs font-mono uppercase tracking-wider text-muted">Visitors Today</p>
+              <h3 className="text-2xl font-mono font-bold text-foreground mt-1">
                 {orgSummary?.visitorsToday ?? 0}
               </h3>
             </div>
-            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
-              <CalendarDays className="w-5 h-5" />
+            <div className="w-9 h-9 rounded-none bg-zinc-100 border border-border flex items-center justify-center text-foreground">
+              <CalendarDays className="w-4 h-4" />
             </div>
           </div>
           <p className="text-xs text-muted mt-3">Scheduled for today</p>
@@ -636,13 +636,13 @@ export default function DashboardPage() {
         <Card>
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-xs font-medium text-muted">Currently Checked In</p>
-              <h3 className="text-2xl font-bold text-emerald-600 mt-1">
+              <p className="text-xs font-mono uppercase tracking-wider text-muted">Currently Checked In</p>
+              <h3 className="text-2xl font-mono font-bold text-emerald-600 mt-1">
                 {orgSummary?.activeVisitors ?? 0}
               </h3>
             </div>
-            <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600">
-              <QrCode className="w-5 h-5" />
+            <div className="w-9 h-9 rounded-none bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-700">
+              <QrCode className="w-4 h-4" />
             </div>
           </div>
           <p className="text-xs text-muted mt-3">Active on facility grounds</p>
@@ -651,13 +651,13 @@ export default function DashboardPage() {
         <Card>
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-xs font-medium text-muted">Pending Approvals</p>
-              <h3 className="text-2xl font-bold text-amber-600 mt-1">
+              <p className="text-xs font-mono uppercase tracking-wider text-muted">Pending Approvals</p>
+              <h3 className="text-2xl font-mono font-bold text-amber-600 mt-1">
                 {orgSummary?.pendingApprovals ?? 0}
               </h3>
             </div>
-            <div className="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600">
-              <ClipboardCheck className="w-5 h-5" />
+            <div className="w-9 h-9 rounded-none bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-700">
+              <ClipboardCheck className="w-4 h-4" />
             </div>
           </div>
           <p className="text-xs text-muted mt-3">Awaiting host confirmation</p>
@@ -666,13 +666,13 @@ export default function DashboardPage() {
         <Card>
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-xs font-medium text-muted">Completed Visits</p>
-              <h3 className="text-2xl font-bold text-blue-600 mt-1">
+              <p className="text-xs font-mono uppercase tracking-wider text-muted">Completed Visits</p>
+              <h3 className="text-2xl font-mono font-bold text-foreground mt-1">
                 {orgSummary?.completedVisits ?? 0}
               </h3>
             </div>
-            <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600">
-              <CheckCircle2 className="w-5 h-5" />
+            <div className="w-9 h-9 rounded-none bg-zinc-100 border border-border flex items-center justify-center text-foreground">
+              <CheckCircle2 className="w-4 h-4" />
             </div>
           </div>
           <p className="text-xs text-muted mt-3">Successfully checked out</p>
@@ -700,16 +700,16 @@ export default function DashboardPage() {
 
                 return (
                   <div key={idx} className="flex-1 flex flex-col items-center gap-2 h-full justify-end">
-                    <span className="text-[11px] font-bold text-foreground">{trend.total}</span>
+                    <span className="text-[11px] font-mono font-bold text-foreground">{trend.total}</span>
                     <div
                       style={{ height: `${Math.max(heightPct, 6)}%` }}
-                      className="w-full max-w-[40px] bg-[#22285B] rounded-t-md hover:bg-[#303A7A] transition-all cursor-pointer relative group"
+                      className="w-full max-w-[40px] bg-black rounded-none hover:bg-zinc-800 transition-all cursor-pointer relative group"
                     >
-                      <div className="absolute -top-10 left-1/2 -translate-x-1/2 hidden group-hover:block bg-gray-900 text-white text-[10px] py-1 px-2 rounded whitespace-nowrap z-10 shadow">
+                      <div className="absolute -top-10 left-1/2 -translate-x-1/2 hidden group-hover:block bg-black text-white text-[10px] font-mono py-1 px-2 rounded-none whitespace-nowrap z-10 border border-zinc-700 shadow-xl">
                         {trend.date}: {trend.total} visits
                       </div>
                     </div>
-                    <span className="text-[11px] font-medium text-muted mt-1">{trend.dayName}</span>
+                    <span className="text-[11px] font-mono font-medium text-muted mt-1">{trend.dayName}</span>
                   </div>
                 );
               })}

@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ShieldCheck, Mail, Lock, ArrowRight, AlertCircle, Building2 } from 'lucide-react';
+import { ShieldCheck, Mail, Lock, ArrowRight, AlertCircle, Terminal, Key } from 'lucide-react';
 import { useAuthStore } from '../../../stores/auth.store';
 import { Button } from '../../../components/ui/button';
 import { toast } from '../../../stores/toast.store';
@@ -54,56 +54,77 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row bg-[#F8F9FC]">
-      {/* Left hero / visual section */}
-      <div className="hidden md:flex md:w-1/2 bg-[#22285B] text-white p-12 flex-col justify-between relative overflow-hidden">
-        <div className="absolute -right-20 -bottom-20 w-96 h-96 rounded-full bg-white/5 blur-3xl" />
-        <div className="absolute -left-20 -top-20 w-96 h-96 rounded-full bg-[#303A7A]/30 blur-2xl" />
-
+    <div className="min-h-screen flex flex-col md:flex-row bg-[#FAFAFA]">
+      {/* Left hero / visual technical panel */}
+      <div className="hidden md:flex md:w-1/2 bg-[#09090B] text-white p-12 lg:p-16 flex-col justify-between relative overflow-hidden border-r border-zinc-800 cursor-grid-pattern-dark">
         <div className="relative z-10 flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center border border-white/20">
-            <ShieldCheck className="w-6 h-6 text-emerald-400" />
+          <div className="w-8 h-8 rounded-none bg-white text-black flex items-center justify-center border border-zinc-300 font-mono font-bold text-sm">
+            <ShieldCheck className="w-5 h-5 text-black" />
           </div>
-          <span className="text-xl font-bold tracking-tight text-white">HAVEN</span>
+          <span className="text-sm font-bold tracking-widest font-mono text-white">HAVEN.AUTH</span>
         </div>
 
-        <div className="relative z-10 space-y-4 max-w-md">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-emerald-300 text-xs font-medium border border-white/10">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            Enterprise Visitor & Access Platform
+        <div className="relative z-10 space-y-6 max-w-lg">
+          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-none bg-zinc-900 border border-zinc-700 text-zinc-300 text-[11px] font-mono tracking-wider">
+            <span className="w-1.5 h-1.5 rounded-none bg-emerald-400" />
+            SYS.STATUS: OPERATIONAL [AUTH_V2]
           </div>
-          <h1 className="text-3xl lg:text-4xl font-bold tracking-tight leading-snug">
-            Streamlined visitor flows, cryptographically verified passes.
+          
+          <h1 className="text-3xl lg:text-4xl font-bold tracking-tight text-white leading-tight font-sans">
+            Cryptographic verification and physical entry management.
           </h1>
-          <p className="text-sm text-gray-300 leading-relaxed">
-            Multi-tenant security, host pre-approvals, QR check-ins, and automated compliance logging built for modern enterprise workspaces.
+
+          <p className="text-xs text-zinc-400 font-mono leading-relaxed">
+            Multi-tenant infrastructure with real-time biometric check-ins, automated host authorization workflows, and verifiable offline QR passes.
           </p>
+
+          <div className="p-4 bg-zinc-950/80 border border-zinc-800 font-mono text-[11px] text-zinc-400 space-y-2">
+            <div className="flex items-center justify-between text-zinc-500 border-b border-zinc-800 pb-2">
+              <span className="flex items-center gap-1.5 text-zinc-300">
+                <Terminal className="w-3.5 h-3.5" />
+                TELEMETRY.SECURITY_PROTOCOLS
+              </span>
+              <span>SHA-256</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Token Format:</span>
+              <span className="text-zinc-200">JWT / HS256 Signed</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Tenant Context:</span>
+              <span className="text-zinc-200">Strict Isolated MongoDB</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Pass Verifier:</span>
+              <span className="text-emerald-400">Time-Gated Dynamic QR</span>
+            </div>
+          </div>
         </div>
 
-        <div className="relative z-10 pt-8 border-t border-white/10 flex items-center justify-between text-xs text-gray-400">
-          <span>&copy; {new Date().getFullYear()} Quadricx</span>
-          <span>Zero-Trust Architecture</span>
+        <div className="relative z-10 pt-6 border-t border-zinc-800 flex items-center justify-between font-mono text-[10px] text-zinc-500">
+          <span>&copy; {new Date().getFullYear()} HAVEN PLATFORM</span>
+          <span>ENTERPRISE_GRADE</span>
         </div>
       </div>
 
       {/* Right login form section */}
-      <div className="flex-1 flex flex-col justify-center items-center p-4 sm:p-8 md:p-12 w-full">
-        <div className="w-full max-w-md space-y-6 sm:space-y-8">
+      <div className="flex-1 flex flex-col justify-center items-center p-6 sm:p-12 w-full">
+        <div className="w-full max-w-sm space-y-6">
           <div className="text-left">
             <div className="md:hidden flex items-center gap-2 mb-6">
-              <div className="w-8 h-8 rounded-lg bg-[#22285B] flex items-center justify-center text-white">
-                <ShieldCheck className="w-5 h-5 text-emerald-400" />
+              <div className="w-7 h-7 rounded-none bg-black flex items-center justify-center text-white">
+                <ShieldCheck className="w-4 h-4 text-emerald-400" />
               </div>
-              <span className="text-lg font-bold text-[#22285B]">HAVEN</span>
+              <span className="text-sm font-bold font-mono text-black">HAVEN</span>
             </div>
-            <h2 className="text-xl sm:text-2xl font-bold text-foreground tracking-tight">Sign in to your account</h2>
-            <p className="text-xs text-muted mt-1.5">
-              Enter your credentials to access your designated Haven dashboard.
+            <h2 className="text-xl font-bold text-foreground tracking-tight">Sign in to console</h2>
+            <p className="text-xs text-muted font-mono mt-1">
+              Enter your authorized credentials to begin session.
             </p>
           </div>
 
           {error && (
-            <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-danger text-xs font-medium flex items-center gap-2.5">
+            <div className="p-3 rounded-none bg-red-50 border border-red-200 text-danger text-xs font-mono flex items-center gap-2">
               <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{error}</span>
             </div>
@@ -111,10 +132,10 @@ export default function LoginPage() {
 
           <form onSubmit={handleSubmit} className="space-y-4" noValidate>
             <div className="space-y-1.5">
-              <label className="block text-xs font-semibold text-foreground">Email Address</label>
+              <label className="block text-xs font-semibold text-foreground tracking-tight">Corporate Email</label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-muted">
-                  <Mail className="w-4 h-4" />
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-muted">
+                  <Mail className="w-3.5 h-3.5" />
                 </div>
                 <input
                   type="email"
@@ -124,10 +145,10 @@ export default function LoginPage() {
                     if (fieldErrors.email) setFieldErrors((prev) => ({ ...prev, email: undefined }));
                   }}
                   placeholder="name@company.com"
-                  className={`w-full pl-10 pr-3.5 py-2.5 text-sm bg-white rounded-lg border transition-colors ${
+                  className={`w-full pl-9 pr-3 py-2 text-xs bg-white rounded-none border transition-colors ${
                     fieldErrors.email
                       ? 'border-danger focus:border-danger focus:ring-1 focus:ring-danger text-danger'
-                      : 'border-border focus:border-primary focus:ring-1 focus:ring-primary'
+                      : 'border-border focus:border-foreground focus:ring-1 focus:ring-foreground'
                   }`}
                   required
                 />
@@ -139,14 +160,11 @@ export default function LoginPage() {
 
             <div className="space-y-1.5">
               <div className="flex items-center justify-between">
-                <label className="block text-xs font-semibold text-foreground">Password</label>
-                <span className="text-xs text-primary hover:underline cursor-pointer">
-                  Forgot password?
-                </span>
+                <label className="block text-xs font-semibold text-foreground tracking-tight">Password</label>
               </div>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-muted">
-                  <Lock className="w-4 h-4" />
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-muted">
+                  <Lock className="w-3.5 h-3.5" />
                 </div>
                 <input
                   type="password"
@@ -156,10 +174,10 @@ export default function LoginPage() {
                     if (fieldErrors.password) setFieldErrors((prev) => ({ ...prev, password: undefined }));
                   }}
                   placeholder="••••••••••••"
-                  className={`w-full pl-10 pr-3.5 py-2.5 text-sm bg-white rounded-lg border transition-colors ${
+                  className={`w-full pl-9 pr-3 py-2 text-xs bg-white rounded-none border transition-colors ${
                     fieldErrors.password
                       ? 'border-danger focus:border-danger focus:ring-1 focus:ring-danger'
-                      : 'border-border focus:border-primary focus:ring-1 focus:ring-primary'
+                      : 'border-border focus:border-foreground focus:ring-1 focus:ring-foreground'
                   }`}
                   required
                 />
@@ -170,27 +188,37 @@ export default function LoginPage() {
             </div>
 
             <Button type="submit" variant="primary" size="md" className="w-full mt-2" isLoading={isLoading}>
-              <span>Sign In</span>
-              <ArrowRight className="w-4 h-4 ml-1" />
+              <span>Authenticate Session</span>
+              <ArrowRight className="w-3.5 h-3.5 ml-1" />
             </Button>
           </form>
 
-          {/* Quick test credentials shortcut helper */}
-          {/* <div className="mt-8 pt-6 border-t border-border">
-            <p className="text-[11px] font-semibold text-muted uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
-              <Building2 className="w-3.5 h-3.5" />
-              Quick Demo Access
+          {/* Quick Demo Access Bar */}
+          <div className="pt-4 border-t border-border">
+            <p className="text-[10px] font-mono text-muted uppercase tracking-wider mb-2 flex items-center gap-1.5">
+              <Key className="w-3 h-3" />
+              QUICK_PREFILL_CREDENTIALS:
             </p>
-            <div className="flex flex-wrap gap-2">
+            <div className="grid grid-cols-2 gap-1.5 font-mono text-[11px]">
               <button
                 type="button"
                 onClick={() => setDemoCredentials('admin@haven.local', 'HavenAdmin2026!Secure')}
-                className="text-xs px-2.5 py-1.5 rounded-md bg-white border border-border text-foreground hover:bg-gray-50 transition-colors"
+                className="p-1.5 bg-white border border-border hover:border-black text-left transition-colors"
               >
-                Super Admin
+                <span className="block font-semibold">[SUPER_ADMIN]</span>
+                <span className="text-[10px] text-muted block truncate">admin@haven.local</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setDemoCredentials('frontdesk@acme.com', 'Reception2026!Secure')}
+                className="p-1.5 bg-white border border-border hover:border-black text-left transition-colors"
+              >
+                <span className="block font-semibold">[RECEPTIONIST]</span>
+                <span className="text-[10px] text-muted block truncate">frontdesk@acme.com</span>
               </button>
             </div>
-          </div> */}
+          </div>
         </div>
       </div>
     </div>

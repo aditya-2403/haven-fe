@@ -61,7 +61,7 @@ export function ToastContainer() {
               exit={{ opacity: 0, y: -15, scale: 0.95 }}
               transition={{ duration: 0.2 }}
               className={cn(
-                'pointer-events-auto rounded-xl border p-3.5 shadow-lg flex items-start gap-3 relative overflow-hidden backdrop-blur-md',
+                'pointer-events-auto rounded-none border p-3.5 shadow-2xl flex items-start gap-3 relative overflow-hidden backdrop-blur-md',
                 style.bg,
                 style.border,
               )}
@@ -72,17 +72,17 @@ export function ToastContainer() {
 
               <div className="flex-1 pr-4">
                 {item.title && (
-                  <h5 className="text-xs font-semibold text-foreground tracking-tight">
+                  <h5 className="text-xs font-mono font-bold uppercase tracking-wider text-foreground">
                     {item.title}
                   </h5>
                 )}
-                <p className="text-xs text-muted leading-relaxed mt-0.5">{item.message}</p>
+                <p className="text-xs text-muted leading-relaxed mt-0.5 font-sans">{item.message}</p>
               </div>
 
               <button
                 type="button"
                 onClick={() => removeToast(item.id)}
-                className="text-muted/70 hover:text-foreground rounded p-1 transition-colors absolute top-2 right-2"
+                className="text-muted/70 hover:text-foreground rounded-none p-1 transition-colors absolute top-2 right-2 border border-transparent hover:border-border"
               >
                 <X className="w-3.5 h-3.5" />
               </button>

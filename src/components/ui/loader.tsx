@@ -11,11 +11,11 @@ interface SpinnerProps {
 }
 
 const sizeMap = {
-  xs: 'w-3.5 h-3.5',
+  xs: 'w-3 h-3',
   sm: 'w-4 h-4',
-  md: 'w-6 h-6',
-  lg: 'w-8 h-8',
-  xl: 'w-12 h-12',
+  md: 'w-5 h-5',
+  lg: 'w-7 h-7',
+  xl: 'w-10 h-10',
 };
 
 const strokeMap = {
@@ -27,7 +27,7 @@ const strokeMap = {
 };
 
 const colorMap = {
-  primary: 'text-primary',
+  primary: 'text-foreground',
   white: 'text-white',
   muted: 'text-muted/60',
   emerald: 'text-emerald-500',
@@ -69,41 +69,36 @@ interface HavenBrandLoaderProps {
 
 export function HavenBrandLoader({
   message = 'Loading Haven...',
-  subMessage = 'Securing workspace context',
+  subMessage = 'Connecting telemetry',
   fullScreen = false,
 }: HavenBrandLoaderProps) {
   return (
     <div
       className={cn(
-        'flex flex-col items-center justify-center p-6 text-center select-none',
+        'flex flex-col items-center justify-center p-6 text-center select-none cursor-grid-pattern',
         fullScreen ? 'min-h-screen bg-background' : 'py-16 w-full',
       )}
     >
-      {/* Animated Brand Emblem */}
-      <div className="relative mb-5 flex items-center justify-center">
-        {/* Pulsing glow rings */}
-        <div className="absolute w-20 h-20 rounded-2xl bg-primary/10 animate-ping opacity-60" />
-        <div className="absolute w-16 h-16 rounded-2xl bg-emerald-500/15 animate-pulse" />
-
-        {/* Orbiting ring */}
-        <div className="w-14 h-14 rounded-2xl bg-[#22285B] text-white flex items-center justify-center shadow-lg shadow-[#22285B]/20 relative z-10 border border-white/20">
-          <ShieldCheck className="w-7 h-7 text-emerald-400 stroke-[2] animate-pulse" />
+      {/* Precision Emblem */}
+      <div className="relative mb-4 flex items-center justify-center">
+        <div className="w-10 h-10 rounded-none bg-black text-white flex items-center justify-center shadow-none border border-zinc-700">
+          <ShieldCheck className="w-5 h-5 text-emerald-400 stroke-[2.5]" />
         </div>
       </div>
 
       {/* Brand & Loading Caption */}
       <div className="space-y-1">
-        <h4 className="text-sm font-bold tracking-tight text-foreground flex items-center justify-center gap-1.5">
-          <span>{message}</span>
+        <h4 className="text-xs font-mono font-semibold uppercase tracking-wider text-foreground">
+          {message}
         </h4>
         {subMessage && (
-          <p className="text-xs text-muted font-medium">{subMessage}</p>
+          <p className="text-[11px] font-mono text-muted">{subMessage}</p>
         )}
       </div>
 
-      {/* Progress pill bar */}
-      <div className="w-36 h-1 bg-gray-100 rounded-full mt-4 overflow-hidden relative">
-        <div className="h-full bg-gradient-to-r from-primary via-emerald-500 to-primary w-1/2 rounded-full absolute animate-[shimmer_1.5s_infinite] -translate-x-full" />
+      {/* Progress sharp bar */}
+      <div className="w-32 h-0.5 bg-zinc-200 rounded-none mt-3 overflow-hidden relative">
+        <div className="h-full bg-black w-1/2 rounded-none absolute animate-[shimmer_1.5s_infinite] -translate-x-full" />
       </div>
     </div>
   );
@@ -123,12 +118,12 @@ export function TableSkeleton({ rows = 5, cols = 5, colSpan }: TableSkeletonProp
       {Array.from({ length: rows }).map((_, rIdx) => (
         <tr key={rIdx} className="border-b border-border/50 animate-pulse">
           {Array.from({ length: actualColSpan }).map((_, cIdx) => (
-            <td key={cIdx} className="py-3.5 px-4">
+            <td key={cIdx} className="py-3 px-4">
               <div
-                className="h-3.5 bg-gray-200/70 rounded-md"
+                className="h-3 bg-zinc-200/80 rounded-none"
                 style={{
                   width: `${60 + ((rIdx * 17 + cIdx * 23) % 35)}%`,
-                  opacity: 0.8 - (cIdx * 0.05),
+                  opacity: 0.85 - (cIdx * 0.05),
                 }}
               />
             </td>
@@ -149,14 +144,14 @@ export function CardSkeleton({ count = 4 }: CardSkeletonProps) {
       {Array.from({ length: count }).map((_, idx) => (
         <div
           key={idx}
-          className="rounded-xl border border-border/70 bg-surface p-4 sm:p-6 shadow-xs animate-pulse space-y-3"
+          className="rounded-none border border-border bg-surface p-4 sm:p-5 shadow-none animate-pulse space-y-3"
         >
           <div className="flex items-center justify-between">
-            <div className="h-3 w-24 bg-gray-200 rounded" />
-            <div className="h-4 w-4 bg-gray-200 rounded-full" />
+            <div className="h-2.5 w-20 bg-zinc-200 rounded-none" />
+            <div className="h-3 w-3 bg-zinc-200 rounded-none" />
           </div>
-          <div className="h-7 w-20 bg-gray-300 rounded" />
-          <div className="h-2.5 w-32 bg-gray-200/80 rounded" />
+          <div className="h-6 w-16 bg-zinc-300 rounded-none" />
+          <div className="h-2 w-28 bg-zinc-200 rounded-none" />
         </div>
       ))}
     </>

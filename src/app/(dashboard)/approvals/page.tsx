@@ -201,7 +201,7 @@ export default function ApprovalsPage() {
       >
         {selectedVisit && (
           <div className="space-y-4">
-            <div className="p-3 bg-gray-50 rounded-lg text-xs space-y-1.5 border border-border">
+            <div className="p-3 bg-zinc-50 rounded-none text-xs space-y-1.5 border border-border font-mono">
               <p><strong>Visitor:</strong> {selectedVisit.visitorId?.fullName} ({selectedVisit.visitorId?.company || 'Visitor'})</p>
               <p><strong>Scheduled:</strong> {formatDate(selectedVisit.scheduledDate)} at {selectedVisit.scheduledTime}</p>
               <p><strong>Purpose:</strong> {selectedVisit.purpose}</p>
@@ -222,10 +222,10 @@ export default function ApprovalsPage() {
                     ? 'e.g. Approved. Visitor may proceed directly to Conference Room 3B.'
                     : 'e.g. Designated host unavailable at this time. Please reschedule.'
                 }
-                className={`w-full text-xs p-2.5 rounded-lg border focus:outline-none ${
+                className={`w-full text-xs p-2.5 rounded-none border focus:outline-none ${
                   remarksError
                     ? 'border-danger focus:border-danger focus:ring-1 focus:ring-danger'
-                    : 'border-border focus:ring-1 focus:ring-primary'
+                    : 'border-border focus:border-foreground'
                 }`}
                 rows={3}
               />
@@ -281,7 +281,7 @@ export default function ApprovalsPage() {
       >
         {issuedPass && (
           <div className="flex flex-col items-center text-center space-y-4">
-            <div className="p-4 bg-white rounded-2xl border-2 border-primary/20 shadow-sm inline-block">
+            <div className="p-4 bg-white rounded-none border border-border shadow-2xl inline-block">
               {issuedPass.qrCodeDataUrl ? (
                 <img
                   src={issuedPass.qrCodeDataUrl}

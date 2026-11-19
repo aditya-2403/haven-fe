@@ -21,6 +21,13 @@ import { Card, CardHeader, CardTitle } from '../../../components/ui/card';
 import { Button } from '../../../components/ui/button';
 import { Badge } from '../../../components/ui/badge';
 import { CardSkeleton } from '../../../components/ui/loader';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '../../../components/ui/select';
 import { toast } from '../../../stores/toast.store';
 import { REPORT_MESSAGES } from '../../../constants/messages';
 
@@ -127,26 +134,23 @@ export default function ReportsPage() {
         {/* Actions & Filters */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3 w-full sm:w-auto">
           {user?.role === 'SUPER_ADMIN' && (
-            <div className="flex items-center gap-2 bg-surface px-3 py-1.5 rounded-lg border border-border shadow-xs w-full sm:w-auto justify-between sm:justify-start">
-              <div className="flex items-center gap-2">
-                <Building2 className="w-4 h-4 text-primary shrink-0" />
-                <label htmlFor="org-select" className="text-xs font-semibold text-foreground whitespace-nowrap">
-                  Scope:
-                </label>
-              </div>
-              <select
-                id="org-select"
-                value={selectedOrgId}
-                onChange={(e) => setSelectedOrgId(e.target.value)}
-                className="text-xs bg-transparent text-foreground font-medium focus:outline-none cursor-pointer pr-2 max-w-[200px] truncate"
+            <div className="w-full sm:w-60">
+              <Select
+                value={selectedOrgId || 'ALL'}
+                onValueChange={(val) => setSelectedOrgId(val === 'ALL' ? '' : val)}
               >
-                <option value="">All Organizations (Global)</option>
-                {organizations.map((org: any) => (
-                  <option key={org.id || org._id} value={org.id || org._id}>
-                    {org.name}
-                  </option>
-                ))}
-              </select>
+                <SelectTrigger>
+                  <SelectValue placeholder="All Organizations (Global)" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="ALL">All Organizations (Global)</SelectItem>
+                  {organizations.map((org: any) => (
+                    <SelectItem key={org.id || org._id} value={org.id || org._id}>
+                      {org.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
           )}
 
@@ -314,10 +318,10 @@ export default function ReportsPage() {
                       <span className="text-foreground">{item.departmentName}</span>
                       <span className="text-muted font-bold">{item.visitCount} visits</span>
                     </div>
-                    <div className="w-full h-2 rounded-full bg-gray-100 overflow-hidden">
+                    <div className="w-full h-1.5 rounded-none bg-zinc-100 overflow-hidden border border-border">
                       <div
                         style={{ width: `${pct}%` }}
-                        className="h-full rounded-full bg-primary"
+                        className="h-full rounded-none bg-black"
                       />
                     </div>
                   </div>
@@ -343,7 +347,7 @@ export default function ReportsPage() {
               {topHosts.map((host: any, idx: number) => (
                 <div key={host._id} className="py-2.5 flex items-center justify-between text-xs">
                   <div className="flex items-center gap-2.5">
-                    <span className="w-5 h-5 rounded-full bg-gray-100 text-muted font-bold flex items-center justify-center text-[10px]">
+                    <span className="w-5 h-5 rounded-none bg-zinc-100 border border-border text-foreground font-mono font-bold flex items-center justify-center text-[10px]">
                       {idx + 1}
                     </span>
                     <div>

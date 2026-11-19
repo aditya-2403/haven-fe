@@ -9,6 +9,13 @@ import { Visit } from '../../../types';
 import { Button } from '../../../components/ui/button';
 import { Badge } from '../../../components/ui/badge';
 import { Card } from '../../../components/ui/card';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '../../../components/ui/select';
 import { TableSkeleton } from '../../../components/ui/loader';
 import { formatDate, formatDateTime, formatTime } from '../../../lib/utils';
 import { toast } from '../../../stores/toast.store';
@@ -91,25 +98,28 @@ export default function VisitorLogsPage() {
       </div>
 
       {/* Filter Toolbar */}
-      <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-2.5 bg-surface p-3.5 rounded-xl border border-border w-full min-w-0">
+      <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-2.5 bg-surface p-3.5 rounded-none border border-border w-full min-w-0">
         {user?.role === 'SUPER_ADMIN' && (
-          <div className="flex items-center gap-2 bg-white px-2.5 py-1.5 rounded-lg border border-border w-full sm:w-auto">
-            <Building2 className="w-4 h-4 text-primary shrink-0" />
-            <select
-              value={selectedOrgId}
-              onChange={(e) => {
-                setSelectedOrgId(e.target.value);
+          <div className="w-full sm:w-52">
+            <Select
+              value={selectedOrgId || 'ALL'}
+              onValueChange={(val) => {
+                setSelectedOrgId(val === 'ALL' ? '' : val);
                 setPage(1);
               }}
-              className="text-xs bg-transparent text-foreground font-medium focus:outline-none cursor-pointer w-full"
             >
-              <option value="">All Organizations</option>
-              {organizations.map((org: any) => (
-                <option key={org.id || org._id} value={org.id || org._id}>
-                  {org.name}
-                </option>
-              ))}
-            </select>
+              <SelectTrigger>
+                <SelectValue placeholder="All Organizations" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="ALL">All Organizations</SelectItem>
+                {organizations.map((org: any) => (
+                  <SelectItem key={org.id || org._id} value={org.id || org._id}>
+                    {org.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
         )}
 
@@ -123,26 +133,32 @@ export default function VisitorLogsPage() {
               setPage(1);
             }}
             placeholder="Search logs by visitor, purpose or host..."
-            className="w-full pl-9 pr-3.5 py-1.5 text-xs bg-white rounded-lg border border-border focus:outline-none focus:ring-1 focus:ring-primary"
+            className="w-full pl-9 pr-3.5 py-2 text-xs bg-surface rounded-none border border-border focus:outline-none focus:border-foreground h-9"
           />
         </div>
 
-        <select
-          value={status}
-          onChange={(e) => {
-            setStatus(e.target.value);
-            setPage(1);
-          }}
-          className="text-xs p-2 rounded-lg border border-border bg-white text-foreground focus:ring-1 focus:ring-primary focus:outline-none w-full sm:w-auto"
-        >
-          <option value="">All Statuses</option>
-          <option value="CHECKED_OUT">Completed (Checked Out)</option>
-          <option value="CHECKED_IN">Currently Checked In</option>
-          <option value="APPROVED">Approved (Upcoming)</option>
-          <option value="PENDING_APPROVAL">Pending Approval</option>
-          <option value="REJECTED">Rejected</option>
-          <option value="CANCELLED">Cancelled</option>
-        </select>
+        <div className="w-full sm:w-48">
+          <Select
+            value={status || 'ALL'}
+            onValueChange={(val) => {
+              setStatus(val === 'ALL' ? '' : val);
+              setPage(1);
+            }}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="All Statuses" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="ALL">All Statuses</SelectItem>
+              <SelectItem value="CHECKED_OUT">Completed (Checked Out)</SelectItem>
+              <SelectItem value="CHECKED_IN">Currently Checked In</SelectItem>
+              <SelectItem value="APPROVED">Approved (Upcoming)</SelectItem>
+              <SelectItem value="PENDING_APPROVAL">Pending Approval</SelectItem>
+              <SelectItem value="REJECTED">Rejected</SelectItem>
+              <SelectItem value="CANCELLED">Cancelled</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
 
         <div className="flex items-center gap-1.5 w-full sm:w-auto">
           <input
@@ -152,9 +168,9 @@ export default function VisitorLogsPage() {
               setStartDate(e.target.value);
               setPage(1);
             }}
-            className="text-xs p-1.5 rounded-lg border border-border bg-white text-foreground focus:ring-1 focus:ring-primary focus:outline-none flex-1 sm:flex-initial"
+            className="text-xs p-1.5 rounded-none border border-border bg-surface text-foreground focus:border-foreground focus:outline-none flex-1 sm:flex-initial font-mono"
           />
-          <span className="text-xs text-muted">to</span>
+          <span className="text-xs text-muted font-mono">to</span>
           <input
             type="date"
             value={endDate}
@@ -162,7 +178,7 @@ export default function VisitorLogsPage() {
               setEndDate(e.target.value);
               setPage(1);
             }}
-            className="text-xs p-1.5 rounded-lg border border-border bg-white text-foreground focus:ring-1 focus:ring-primary focus:outline-none flex-1 sm:flex-initial"
+            className="text-xs p-1.5 rounded-none border border-border bg-surface text-foreground focus:border-foreground focus:outline-none flex-1 sm:flex-initial font-mono"
           />
         </div>
 

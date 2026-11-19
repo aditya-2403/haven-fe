@@ -10,6 +10,14 @@ import { Input } from '../../../components/ui/input';
 import { Badge } from '../../../components/ui/badge';
 import { Card } from '../../../components/ui/card';
 import { Modal } from '../../../components/ui/modal';
+import { Label } from '../../../components/ui/label';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '../../../components/ui/select';
 import { TableSkeleton } from '../../../components/ui/loader';
 import { toast } from '../../../stores/toast.store';
 import { formatDate, formatTime } from '../../../lib/utils';
@@ -174,7 +182,7 @@ export default function VisitorsPage() {
               setPage(1);
             }}
             placeholder="Search by visitor name, phone, email, company..."
-            className="w-full pl-9 pr-3.5 py-2 text-xs bg-surface rounded-lg border border-border focus:outline-none focus:ring-1 focus:ring-primary"
+            className="w-full pl-9 pr-3.5 py-2 text-xs bg-surface rounded-none border border-border focus:outline-none focus:border-foreground"
           />
         </div>
       </div>
@@ -207,7 +215,7 @@ export default function VisitorsPage() {
                   <tr key={visitor._id} className="hover:bg-gray-50/50 transition-colors">
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-2.5">
-                        <div className="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-xs shrink-0 overflow-hidden">
+                        <div className="w-8 h-8 rounded-none bg-black text-white flex items-center justify-center font-bold font-mono text-xs shrink-0 overflow-hidden border border-zinc-800">
                           {visitor.photoFileId ? (
                             <img
                               src={`http://localhost:4000/api/v1/storage/${visitor.photoFileId}`}
@@ -310,7 +318,7 @@ export default function VisitorsPage() {
       >
         <form onSubmit={handleRegisterSubmit} className="space-y-4" noValidate>
           {formError && (
-            <div className="p-3 rounded-lg bg-red-50 text-danger text-xs flex items-center gap-2 border border-red-200">
+            <div className="p-3 rounded-none bg-red-50 text-danger text-xs flex items-center gap-2 border border-red-200">
               <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{formError}</span>
             </div>
@@ -363,17 +371,21 @@ export default function VisitorsPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-foreground">Identification Type</label>
-              <select
+              <Label>Identification Type</Label>
+              <Select
                 value={identificationType}
-                onChange={(e) => setIdentificationType(e.target.value)}
-                className="w-full text-xs p-2.5 rounded-lg border border-border bg-white focus:outline-none focus:ring-1 focus:ring-primary"
+                onValueChange={(val) => setIdentificationType(val)}
               >
-                <option value="NATIONAL_ID">National ID / Aadhaar</option>
-                <option value="PASSPORT">Passport</option>
-                <option value="DRIVING_LICENSE">Driver's License</option>
-                <option value="OTHER">Other Government ID</option>
-              </select>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select ID type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="NATIONAL_ID">National ID / Aadhaar</SelectItem>
+                  <SelectItem value="PASSPORT">Passport</SelectItem>
+                  <SelectItem value="DRIVING_LICENSE">Driver's License</SelectItem>
+                  <SelectItem value="OTHER">Other Government ID</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
             <Input
               label="ID Document Number"
@@ -385,13 +397,13 @@ export default function VisitorsPage() {
 
           {/* Photograph Upload */}
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-foreground">Visitor Photograph (Optional)</label>
+            <Label>Visitor Photograph (Optional)</Label>
             <div className="flex items-center gap-3">
               <input
                 type="file"
                 accept="image/jpeg,image/png,image/webp"
                 onChange={(e) => setPhotoFile(e.target.files?.[0] || null)}
-                className="text-xs text-muted file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20"
+                className="text-xs text-muted file:mr-3 file:py-1.5 file:px-3 file:rounded-none file:border file:border-border file:text-xs file:font-mono file:font-semibold file:bg-surface file:text-foreground hover:file:bg-zinc-100"
               />
             </div>
             <p className="text-[10px] text-muted">Supports JPG, PNG or WEBP up to 5MB.</p>

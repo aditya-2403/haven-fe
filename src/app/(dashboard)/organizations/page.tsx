@@ -192,7 +192,7 @@ export default function OrganizationsPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search organizations by name, slug or email..."
-            className="w-full pl-9 pr-3.5 py-2 text-xs bg-surface rounded-lg border border-border focus:outline-none focus:ring-1 focus:ring-primary"
+            className="w-full pl-9 pr-3.5 py-2 text-xs bg-surface rounded-none border border-border focus:outline-none focus:border-foreground"
           />
         </div>
       </div>
@@ -225,7 +225,7 @@ export default function OrganizationsPage() {
                   <tr key={org._id} className="hover:bg-gray-50/50 transition-colors">
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-2.5">
-                        <div className="w-7 h-7 rounded-lg bg-primary/10 text-primary flex items-center justify-center font-bold text-xs shrink-0">
+                        <div className="w-7 h-7 rounded-none bg-black text-white flex items-center justify-center font-bold font-mono text-xs shrink-0">
                           {org.name.charAt(0)}
                         </div>
                         <div>
@@ -326,7 +326,7 @@ export default function OrganizationsPage() {
       >
         <form onSubmit={handleCreateSubmit} className="space-y-4" noValidate>
           {formError && (
-            <div className="p-3 rounded-lg bg-red-50 text-danger text-xs flex items-center gap-2 border border-red-200">
+            <div className="p-3 rounded-none bg-red-50 text-danger text-xs flex items-center gap-2 border border-red-200">
               <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{formError}</span>
             </div>

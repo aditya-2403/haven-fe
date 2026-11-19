@@ -62,49 +62,49 @@ const navItems: NavItem[] = [
     roles: ['ORG_ADMIN', 'RECEPTIONIST', 'EMPLOYEE'],
   },
   {
+    label: 'Check-In Desk',
+    href: '/check-in',
+    icon: QrCode,
+    roles: ['ORG_ADMIN', 'RECEPTIONIST', 'SECURITY'],
+  },
+  {
     label: 'Approvals',
     href: '/approvals',
     icon: ClipboardCheck,
     roles: ['ORG_ADMIN', 'EMPLOYEE'],
   },
   {
-    label: 'Check-in & Passes',
-    href: '/check-in',
-    icon: QrCode,
-    roles: ['ORG_ADMIN', 'RECEPTIONIST', 'SECURITY'],
-  },
-  {
-    label: 'Visitor Logs',
-    href: '/visitor-logs',
-    icon: FileText,
-    roles: ['ORG_ADMIN', 'RECEPTIONIST', 'SECURITY', 'EMPLOYEE'],
-  },
-  {
     label: 'Employees',
     href: '/employees',
     icon: UserCheck,
-    roles: ['ORG_ADMIN'],
+    roles: ['SUPER_ADMIN', 'ORG_ADMIN'],
   },
   {
     label: 'Departments',
     href: '/departments',
     icon: FolderTree,
-    roles: ['ORG_ADMIN'],
+    roles: ['SUPER_ADMIN', 'ORG_ADMIN'],
   },
   {
     label: 'Buildings',
     href: '/buildings',
     icon: MapPin,
-    roles: ['ORG_ADMIN'],
-  },
-  {
-    label: 'Users & Access',
-    href: '/users',
-    icon: Users,
     roles: ['SUPER_ADMIN', 'ORG_ADMIN'],
   },
   {
-    label: 'Reports & Analytics',
+    label: 'User Management',
+    href: '/users',
+    icon: ShieldCheck,
+    roles: ['SUPER_ADMIN', 'ORG_ADMIN'],
+  },
+  {
+    label: 'Visitor Logs',
+    href: '/visitor-logs',
+    icon: History,
+    roles: ['SUPER_ADMIN', 'ORG_ADMIN', 'RECEPTIONIST', 'SECURITY'],
+  },
+  {
+    label: 'Analytics & Reports',
     href: '/reports',
     icon: BarChart3,
     roles: ['SUPER_ADMIN', 'ORG_ADMIN'],
@@ -129,55 +129,55 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
       {/* Mobile backdrop */}
       {isOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black/40 lg:hidden backdrop-blur-sm"
+          className="fixed inset-0 z-40 bg-black/60 lg:hidden backdrop-blur-xs"
           onClick={onClose}
         />
       )}
 
       <aside
         className={cn(
-          'fixed top-0 bottom-0 left-0 z-40 w-64 bg-surface border-r border-border flex flex-col transition-transform duration-200 ease-in-out lg:translate-x-0',
+          'fixed top-0 bottom-0 left-0 z-40 w-64 bg-surface border-r border-border flex flex-col transition-transform duration-150 ease-in-out lg:translate-x-0',
           isOpen ? 'translate-x-0' : '-translate-x-full',
         )}
       >
         {/* Brand header */}
-        <div className="h-16 px-6 flex items-center justify-between border-b border-border">
+        <div className="h-14 px-5 flex items-center justify-between border-b border-border">
           <Link href="/dashboard" className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-[#22285B] flex items-center justify-center text-white shadow-sm">
-              <ShieldCheck className="w-5 h-5 text-emerald-400" />
+            <div className="w-7 h-7 rounded-none bg-black flex items-center justify-center text-white border border-zinc-800">
+              <ShieldCheck className="w-4 h-4 text-emerald-400" />
             </div>
             <div>
-              <span className="font-bold text-base tracking-tight text-[#22285B]">HAVEN</span>
-              <span className="text-[10px] block -mt-1 font-semibold text-muted tracking-wider uppercase">
-                Access Platform
+              <span className="font-bold text-sm tracking-tight text-foreground font-mono">HAVEN</span>
+              <span className="text-[9px] block -mt-0.5 font-mono text-muted tracking-widest uppercase">
+                VMS.CORE
               </span>
             </div>
           </Link>
           <button
             onClick={onClose}
-            className="lg:hidden p-1.5 rounded-md text-muted hover:text-foreground"
+            className="lg:hidden p-1.5 rounded-none text-muted hover:text-foreground"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
 
-        {/* Organization pill badge */}
-        <div className="px-4 py-3 border-b border-border/60 bg-gray-50/70">
+        {/* Organization metadata bar */}
+        <div className="px-4 py-2.5 border-b border-border bg-zinc-50/80">
           <div className="flex items-center gap-2">
-            <Building2 className="w-4 h-4 text-primary shrink-0" />
+            <Building2 className="w-3.5 h-3.5 text-zinc-500 shrink-0" />
             <div className="truncate">
-              <p className="text-xs font-semibold text-foreground truncate">
+              <p className="text-[11px] font-semibold text-foreground truncate tracking-tight">
                 {user?.organizationName || (user?.role === 'SUPER_ADMIN' ? 'Global Admin Context' : 'Haven Platform')}
               </p>
-              <span className="text-[10px] text-muted font-medium uppercase tracking-wider">
-                {user?.role?.replace('_', ' ')}
+              <span className="text-[9px] font-mono text-muted uppercase tracking-wider block">
+                [{user?.role?.replace('_', ' ')}]
               </span>
             </div>
           </div>
         </div>
 
         {/* Navigation items */}
-        <div className="flex-1 overflow-y-auto px-3 py-4 space-y-1">
+        <div className="flex-1 overflow-y-auto px-2 py-3 space-y-0.5">
           {visibleItems.map((item) => {
             const Icon = item.icon;
             const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
@@ -188,16 +188,16 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                 href={item.href}
                 onClick={() => onClose()}
                 className={cn(
-                  'flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium transition-colors',
+                  'flex items-center gap-2.5 px-3 py-2 rounded-none text-xs font-medium transition-colors tracking-tight',
                   isActive
-                    ? 'bg-[#22285B] text-white shadow-sm'
-                    : 'text-foreground hover:bg-gray-100/80 hover:text-foreground',
+                    ? 'bg-black text-white border border-black'
+                    : 'text-zinc-600 hover:bg-zinc-100 hover:text-black',
                 )}
               >
                 <Icon
                   className={cn(
-                    'w-4 h-4 stroke-[1.8]',
-                    isActive ? 'text-white' : 'text-muted',
+                    'w-3.5 h-3.5 stroke-[2]',
+                    isActive ? 'text-white' : 'text-zinc-400',
                   )}
                 />
                 <span>{item.label}</span>
@@ -207,14 +207,14 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
         </div>
 
         {/* Footer info */}
-        <div className="p-4 border-t border-border">
-          <div className="text-[11px] text-muted">
-            <p className="font-medium text-foreground">Haven Security v1.0</p>
-            <p className="text-[10px]">Enterprise Edition</p>
-          </div>
+        <div className="p-3 border-t border-border font-mono text-[10px] text-muted flex items-center justify-between">
+          <span>HAVEN OS v2.4</span>
+          <span className="text-emerald-600 flex items-center gap-1 font-semibold">
+            <span className="w-1.5 h-1.5 rounded-none bg-emerald-500" />
+            ONLINE
+          </span>
         </div>
       </aside>
     </>
   );
 }
-
