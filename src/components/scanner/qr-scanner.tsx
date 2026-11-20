@@ -300,7 +300,7 @@ export function QrScanner({ onScan, isProcessing = false, onClose, className = '
           <div className="w-2 h-2 rounded-none bg-emerald-400 animate-ping" />
           <span className="text-xs font-mono font-bold tracking-wider text-white uppercase flex items-center gap-1.5">
             <ScanLine className="w-3.5 h-3.5 text-emerald-400" />
-            SCANNER.OPTICAL_HUD
+            Pass Scanner
           </span>
         </div>
 
@@ -425,7 +425,7 @@ export function QrScanner({ onScan, isProcessing = false, onClose, className = '
                     <CheckCircle2 className="w-6 h-6 stroke-[2.5]" />
                   </div>
                   <span className="text-[10px] font-mono uppercase font-bold text-black bg-emerald-400 px-2 py-0.5 rounded-none">
-                    [PASS_VERIFIED]
+                    Pass Verified
                   </span>
                 </div>
               )}
@@ -434,7 +434,7 @@ export function QrScanner({ onScan, isProcessing = false, onClose, className = '
               {isProcessing && !scanSuccessAnim && (
                 <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-black/60 rounded-none">
                   <Spinner size="lg" variant="emerald" />
-                  <span className="text-xs font-mono uppercase text-white tracking-wider">DECODING...</span>
+                  <span className="text-xs font-mono uppercase text-white tracking-wider">Verifying pass...</span>
                 </div>
               )}
             </div>
@@ -448,8 +448,8 @@ export function QrScanner({ onScan, isProcessing = false, onClose, className = '
               <Camera className="w-5 h-5 text-emerald-400 animate-pulse" />
             </div>
             <div>
-              <p className="text-xs font-mono uppercase tracking-wider text-white">INITIALIZING_OPTICAL_FEED</p>
-              <p className="text-xs text-zinc-400 mt-1 font-sans">Connecting to local video capture device...</p>
+              <p className="text-xs font-mono uppercase tracking-wider text-white">Connecting to Camera</p>
+              <p className="text-xs text-zinc-400 mt-1 font-sans">Starting live video feed...</p>
             </div>
             <Spinner size="sm" variant="emerald" className="mt-2" />
           </div>
@@ -462,7 +462,7 @@ export function QrScanner({ onScan, isProcessing = false, onClose, className = '
               <CameraOff className="w-5 h-5" />
             </div>
             <div>
-              <p className="text-xs font-mono uppercase tracking-wider text-white">FEED_ACCESS_DENIED</p>
+              <p className="text-xs font-mono uppercase tracking-wider text-white">Camera Access Denied</p>
               <p className="text-xs text-zinc-300 mt-1 leading-relaxed font-sans">
                 {errorMessage || CHECK_IN_MESSAGES.CAMERA_PERMISSION_DENIED}
               </p>
@@ -497,7 +497,7 @@ export function QrScanner({ onScan, isProcessing = false, onClose, className = '
               <AlertCircle className="w-5 h-5" />
             </div>
             <div>
-              <p className="text-xs font-mono uppercase tracking-wider text-white">HARDWARE_NOT_SUPPORTED</p>
+              <p className="text-xs font-mono uppercase tracking-wider text-white">Camera Unavailable</p>
               <p className="text-xs text-zinc-300 mt-1 leading-relaxed font-sans">
                 {errorMessage || CHECK_IN_MESSAGES.CAMERA_NOT_SUPPORTED}
               </p>
@@ -519,13 +519,13 @@ export function QrScanner({ onScan, isProcessing = false, onClose, className = '
       <div className="p-3 bg-zinc-950 border-t border-white/10 flex items-center justify-between text-xs text-zinc-400">
         <span className="truncate font-sans">
           {permissionState === 'granted'
-            ? 'Align visitor QR pass within the optical frame'
+            ? 'Align visitor QR pass within the frame'
             : 'Standby mode'}
         </span>
         {permissionState === 'granted' && (
           <span className="text-[10px] font-mono text-emerald-400 font-medium shrink-0 ml-2 flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-none bg-emerald-400 animate-pulse" />
-            [AUTO_SCAN]
+            Auto-Detect Active
           </span>
         )}
       </div>

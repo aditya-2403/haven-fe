@@ -65,7 +65,7 @@ export function NotificationsDropdown() {
           <div className="fixed sm:absolute inset-x-2 sm:inset-x-auto sm:right-0 top-14 sm:top-auto sm:mt-1.5 sm:w-96 rounded-none bg-surface border border-border shadow-2xl z-40 overflow-hidden">
             <div className="p-3 border-b border-border flex items-center justify-between bg-zinc-50">
               <div className="flex items-center gap-2">
-                <span className="text-xs font-mono font-semibold text-foreground uppercase tracking-tight">Telemetry Alerts</span>
+                <span className="text-xs font-mono font-semibold text-foreground uppercase tracking-tight">Notifications</span>
                 {unreadCount > 0 && (
                   <span className="text-[9px] font-mono px-1.5 py-0.2 rounded-none bg-black text-white font-bold">
                     {unreadCount} NEW

@@ -193,6 +193,10 @@ All business logic is modularized into 14 distinct NestJS modules:
     - Updated `CommandItem` highlight state to clean `bg-zinc-100 text-foreground` matching `SelectItem` focus behavior.
     - Ensured visitor/employee names, phone/email sublabels, and organization badges maintain high-contrast legibility during keyboard navigation and cursor hover.
 
+11. **Content & Copywriting Revamp (Human, Product-Focused Language)**:
+    - Replaced all overly technical, developer-console, and buzzwordy jargon (`HAVEN_TELEMETRY_ENGINE.EXE`, `OPTICAL_HUD`, `FEED_ACCESS_DENIED`, `SYS.STATUS: OPERATIONAL [AUTH_V2]`, `VMS.CORE`, `HAVEN OS v2.4`, `CRYPTOGRAPHIC PROTOCOLS`, `Telemetry Alerts`) with clean, professional, product-focused language suited for front desks, security personnel, and employee hosts.
+    - Revamped the product landing page (`/`), authentication screen (`/login`), QR pass scanner HUD, dashboard metrics, sidebar, header, and notifications to focus clearly on guest welcoming, host approvals, instant pass verification, and workplace safety.
+
 ---
 
 ## 5. Centralized Message & String Architecture

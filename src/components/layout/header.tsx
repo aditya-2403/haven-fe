@@ -51,7 +51,7 @@ export function Header({ onToggleSidebar }: HeaderProps) {
           </button>
           <div>
             <span className="text-xs font-mono font-semibold text-foreground hidden sm:inline-block tracking-tight">
-              {user?.organizationName || 'WORKSPACE.DEFAULT'}
+              {user?.organizationName || 'Haven Workspace'}
             </span>
           </div>
         </div>

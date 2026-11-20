@@ -27,7 +27,7 @@ export default function DashboardLayout({
       <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="flex flex-col items-center gap-3">
           <Spinner size="md" />
-          <span className="text-xs font-mono uppercase tracking-wider text-muted">AUTHENTICATING_SESSION...</span>
+          <span className="text-xs font-mono uppercase tracking-wider text-muted">Loading workspace...</span>
         </div>
       </div>
     );

@@ -61,49 +61,46 @@ export default function LoginPage() {
           <div className="w-8 h-8 rounded-none bg-white text-black flex items-center justify-center border border-zinc-300 font-mono font-bold text-sm">
             <ShieldCheck className="w-5 h-5 text-black" />
           </div>
-          <span className="text-sm font-bold tracking-widest font-mono text-white">HAVEN.AUTH</span>
+          <span className="text-sm font-bold tracking-widest font-mono text-white">HAVEN</span>
         </div>
 
         <div className="relative z-10 space-y-6 max-w-lg">
           <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-none bg-zinc-900 border border-zinc-700 text-zinc-300 text-[11px] font-mono tracking-wider">
             <span className="w-1.5 h-1.5 rounded-none bg-emerald-400" />
-            SYS.STATUS: OPERATIONAL [AUTH_V2]
+            Workplace Visitor Management
           </div>
           
           <h1 className="text-3xl lg:text-4xl font-bold tracking-tight text-white leading-tight font-sans">
-            Cryptographic verification and physical entry management.
+            A smoother, safer front desk for modern workplaces.
           </h1>
 
-          <p className="text-xs text-zinc-400 font-mono leading-relaxed">
-            Multi-tenant infrastructure with real-time biometric check-ins, automated host authorization workflows, and verifiable offline QR passes.
+          <p className="text-xs text-zinc-400 font-sans leading-relaxed">
+            Coordinate visitor appointments, employee host approvals, and instant contactless QR check-ins from a single, unified workspace.
           </p>
 
-          <div className="p-4 bg-zinc-950/80 border border-zinc-800 font-mono text-[11px] text-zinc-400 space-y-2">
-            <div className="flex items-center justify-between text-zinc-500 border-b border-zinc-800 pb-2">
-              <span className="flex items-center gap-1.5 text-zinc-300">
-                <Terminal className="w-3.5 h-3.5" />
-                TELEMETRY.SECURITY_PROTOCOLS
-              </span>
-              <span>SHA-256</span>
+          <div className="p-4 bg-zinc-950/80 border border-zinc-800 font-sans text-xs text-zinc-400 space-y-2.5">
+            <div className="flex items-center justify-between text-zinc-300 font-semibold border-b border-zinc-800 pb-2 text-[11px] font-mono uppercase tracking-wider">
+              <span>Front Desk Highlights</span>
+              <span className="text-emerald-400">Live Ready</span>
             </div>
-            <div className="flex justify-between">
-              <span>Token Format:</span>
-              <span className="text-zinc-200">JWT / HS256 Signed</span>
+            <div className="flex justify-between py-0.5">
+              <span className="text-zinc-500">Guest Passes:</span>
+              <span className="text-zinc-200">Digital QR codes sent in advance</span>
             </div>
-            <div className="flex justify-between">
-              <span>Tenant Context:</span>
-              <span className="text-zinc-200">Strict Isolated MongoDB</span>
+            <div className="flex justify-between py-0.5">
+              <span className="text-zinc-500">Host Workflows:</span>
+              <span className="text-zinc-200">Instant one-click visit approvals</span>
             </div>
-            <div className="flex justify-between">
-              <span>Pass Verifier:</span>
-              <span className="text-emerald-400">Time-Gated Dynamic QR</span>
+            <div className="flex justify-between py-0.5">
+              <span className="text-zinc-500">Check-In Desk:</span>
+              <span className="text-zinc-200">Webcam pass scanner & visitor log</span>
             </div>
           </div>
         </div>
 
         <div className="relative z-10 pt-6 border-t border-zinc-800 flex items-center justify-between font-mono text-[10px] text-zinc-500">
-          <span>&copy; {new Date().getFullYear()} HAVEN PLATFORM</span>
-          <span>ENTERPRISE_GRADE</span>
+          <span>&copy; {new Date().getFullYear()} Haven. All rights reserved.</span>
+          <span>Enterprise Ready</span>
         </div>
       </div>
 
@@ -117,9 +114,9 @@ export default function LoginPage() {
               </div>
               <span className="text-sm font-bold font-mono text-black">HAVEN</span>
             </div>
-            <h2 className="text-xl font-bold text-foreground tracking-tight">Sign in to console</h2>
-            <p className="text-xs text-muted font-mono mt-1">
-              Enter your authorized credentials to begin session.
+            <h2 className="text-xl font-bold text-foreground tracking-tight">Sign in to your account</h2>
+            <p className="text-xs text-muted font-sans mt-1">
+              Enter your work email and password to access your workspace.
             </p>
           </div>
 
@@ -132,7 +129,7 @@ export default function LoginPage() {
 
           <form onSubmit={handleSubmit} className="space-y-4" noValidate>
             <div className="space-y-1.5">
-              <label className="block text-xs font-semibold text-foreground tracking-tight">Corporate Email</label>
+              <label className="block text-xs font-semibold text-foreground tracking-tight">Email Address</label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-muted">
                   <Mail className="w-3.5 h-3.5" />
@@ -188,16 +185,16 @@ export default function LoginPage() {
             </div>
 
             <Button type="submit" variant="primary" size="md" className="w-full mt-2" isLoading={isLoading}>
-              <span>Authenticate Session</span>
+              <span>Sign In</span>
               <ArrowRight className="w-3.5 h-3.5 ml-1" />
             </Button>
           </form>
 
-          {/* Quick Demo Access Bar */}
+          {/* Quick Demo Access Bar
           <div className="pt-4 border-t border-border">
             <p className="text-[10px] font-mono text-muted uppercase tracking-wider mb-2 flex items-center gap-1.5">
               <Key className="w-3 h-3" />
-              QUICK_PREFILL_CREDENTIALS:
+              Demo Accounts (Click to Fill):
             </p>
             <div className="grid grid-cols-2 gap-1.5 font-mono text-[11px]">
               <button
@@ -205,7 +202,7 @@ export default function LoginPage() {
                 onClick={() => setDemoCredentials('admin@haven.local', 'HavenAdmin2026!Secure')}
                 className="p-1.5 bg-white border border-border hover:border-black text-left transition-colors"
               >
-                <span className="block font-semibold">[SUPER_ADMIN]</span>
+                <span className="block font-semibold">Super Admin</span>
                 <span className="text-[10px] text-muted block truncate">admin@haven.local</span>
               </button>
 
@@ -214,11 +211,11 @@ export default function LoginPage() {
                 onClick={() => setDemoCredentials('frontdesk@acme.com', 'Reception2026!Secure')}
                 className="p-1.5 bg-white border border-border hover:border-black text-left transition-colors"
               >
-                <span className="block font-semibold">[RECEPTIONIST]</span>
+                <span className="block font-semibold">Receptionist</span>
                 <span className="text-[10px] text-muted block truncate">frontdesk@acme.com</span>
               </button>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

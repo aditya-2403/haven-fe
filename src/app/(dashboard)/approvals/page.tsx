@@ -195,7 +195,7 @@ export default function ApprovalsPage() {
         }
         description={
           actionType === 'APPROVE'
-            ? 'Confirm clearance to issue a cryptographic QR pass for this visitor.'
+            ? 'Confirm clearance to issue an approved visitor pass for this guest.'
             : 'Specify rejection remarks to notify the visitor and department.'
         }
       >

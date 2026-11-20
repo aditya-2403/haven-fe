@@ -144,7 +144,7 @@ export default function DashboardPage() {
             Platform Overview
           </h1>
           <p className="text-xs sm:text-sm text-muted mt-1">
-            Global tenant activity, system health, and cross-organization telemetry.
+            Global organization activity, visitor metrics, and system overview.
           </p>
         </div>
 
@@ -207,16 +207,16 @@ export default function DashboardPage() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-xs font-mono uppercase tracking-wider text-muted">System Status</p>
-                <h3 className="text-base font-mono font-bold text-emerald-600 mt-1 flex items-center gap-1.5 uppercase">
+                <h3 className="text-base font-mono font-bold text-emerald-600 mt-1 flex items-center gap-1.5">
                   <span className="w-2 h-2 rounded-none bg-emerald-500 animate-pulse" />
-                  OPERATIONAL
+                  Operational
                 </h3>
               </div>
               <div className="w-9 h-9 rounded-none bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-700">
                 <CheckCircle2 className="w-4 h-4" />
               </div>
             </div>
-            <p className="text-xs font-mono text-muted mt-3">MongoDB & JWT Engine Online</p>
+            <p className="text-xs font-mono text-muted mt-3">All services active & healthy</p>
           </Card>
         </div>
 

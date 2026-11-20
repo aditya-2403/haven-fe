@@ -69,7 +69,7 @@ interface HavenBrandLoaderProps {
 
 export function HavenBrandLoader({
   message = 'Loading Haven...',
-  subMessage = 'Connecting telemetry',
+  subMessage = 'Loading workspace...',
   fullScreen = false,
 }: HavenBrandLoaderProps) {
   return (

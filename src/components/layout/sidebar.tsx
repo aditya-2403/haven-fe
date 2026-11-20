@@ -148,8 +148,8 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
             </div>
             <div>
               <span className="font-bold text-sm tracking-tight text-foreground font-mono">HAVEN</span>
-              <span className="text-[9px] block -mt-0.5 font-mono text-muted tracking-widest uppercase">
-                VMS.CORE
+              <span className="text-[9px] block -mt-0.5 font-mono text-muted tracking-wider uppercase">
+                Visitor Management
               </span>
             </div>
           </Link>
@@ -208,10 +208,10 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
 
         {/* Footer info */}
         <div className="p-3 border-t border-border font-mono text-[10px] text-muted flex items-center justify-between">
-          <span>HAVEN OS v2.4</span>
+          <span>Haven Platform</span>
           <span className="text-emerald-600 flex items-center gap-1 font-semibold">
             <span className="w-1.5 h-1.5 rounded-none bg-emerald-500" />
-            ONLINE
+            Online
           </span>
         </div>
       </aside>
